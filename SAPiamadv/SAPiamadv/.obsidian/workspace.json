@@ -1,0 +1,252 @@
+{
+  "main": {
+    "id": "af777405810063b6",
+    "type": "split",
+    "children": [
+      {
+        "id": "f39c90e7719027e8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4865dbb31d2c45a8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Clean Core Benefits For End Users.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Clean Core Benefits For End Users"
+            }
+          },
+          {
+            "id": "1609a56db8a5279e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Clean Core Benefits For IT.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Clean Core Benefits For IT"
+            }
+          },
+          {
+            "id": "2fbd99b586a690d9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Clean Core Benefits For Organizations.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Clean Core Benefits For Organizations"
+            }
+          }
+        ],
+        "currentTab": 2
+      },
+      {
+        "id": "c9a1b4d0bb0f3737",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3419812c6a718881",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Clean Core Guiding Principles.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Clean Core Guiding Principles"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7a38a6ec3d70101a",
+    "type": "split",
+    "children": [
+      {
+        "id": "75252d621d72e8cc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4362bb6780bcc5fc",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Dosya Gezgini"
+            }
+          },
+          {
+            "id": "534e509008e1e469",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Ara"
+            }
+          },
+          {
+            "id": "5abe2b60843a034c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Yer İmleri"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1bfa220e7544f26b",
+    "type": "split",
+    "children": [
+      {
+        "id": "63d0c0fde758a945",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e063fa2be896177b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Clean Core Guiding Principles.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Geri Bağlantılar"
+            }
+          },
+          {
+            "id": "95b52f8926956f4d",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Clean Core Guiding Principles.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Giden bağlantılar"
+            }
+          },
+          {
+            "id": "bfa88fae618d969e",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiketler"
+            }
+          },
+          {
+            "id": "c3bbef87f5116fda",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Tüm özellikler"
+            }
+          },
+          {
+            "id": "e6fe4780831e741f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Clean Core Guiding Principles.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Anahat"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Hızlı geçişi aç": false,
+      "graph:Grafik görünümünü aç": false,
+      "canvas:Yeni tuval oluşturun": false,
+      "daily-notes:Bugünün Notunu Aç": false,
+      "templates:Şablon ekle": false,
+      "command-palette:Komut paletini aç": false,
+      "bases:Yeni taban oluştur": false
+    }
+  },
+  "active": "3419812c6a718881",
+  "lastOpenFiles": [
+    "Clean Core Benefits For End Users.md",
+    "Clean Core Benefits For Organizations.md",
+    "Clean Core Benefits For IT.md",
+    "MCC100_U3L3_001 1.png",
+    "MCC100_U3L3_001.png",
+    "MCC100_U2L2_001.png",
+    "MCC100_U3L3_001 (1).png",
+    "Clean Core Strategies.md",
+    "Clean Core Guiding Principles.md"
+  ]
+}

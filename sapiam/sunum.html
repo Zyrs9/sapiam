@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAP IAM ve JML Kurumsal Gecis Sunumu</title>
+  <!-- Google Fonts: Poppins (400, 500, 600, 700, 800) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Plotly.js 2.35.2 -->
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    :root {
+      --bg-main: #f0f4f8;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --radius-card: 16px;
+      --shadow-sm: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+      --shadow-hover: 0 16px 32px -4px rgba(15, 23, 42, 0.08), 0 6px 12px -3px rgba(15, 23, 42, 0.04);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      
+      /* Renk Paleti */
+      --color-blue: #2563eb;
+      --bg-blue-light: #eff6ff;
+      --border-blue: #bfdbfe;
+
+      --color-cyan: #0891b2;
+      --bg-cyan-light: #ecfeff;
+      --border-cyan: #a5f3fc;
+
+      --color-green: #059669;
+      --bg-green-light: #ecfdf5;
+      --border-green: #a7f3d0;
+
+      --color-amber: #d97706;
+      --bg-amber-light: #fffbeb;
+      --border-amber: #fde68a;
+
+      --color-violet: #7c3aed;
+      --bg-violet-light: #f5f3ff;
+      --border-violet: #ddd6fe;
+
+      --color-rose: #e11d48;
+      --bg-rose-light: #fff1f2;
+      --border-rose: #fecdd3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Üst Navigasyon Çubuğu */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      z-index: 50;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .badge-persona {
+      background: var(--bg-blue-light);
+      color: var(--color-blue);
+      border: 1px solid var(--border-blue);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slide-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: 8px;
+    }
+
+    .slide-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .slide-dot:hover {
+      border-color: var(--color-blue);
+      color: var(--color-blue);
+    }
+
+    .slide-dot.active {
+      background: var(--color-blue);
+      color: #ffffff;
+      border-color: var(--color-blue);
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-main);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--color-blue);
+      color: #ffffff;
+      border-color: var(--color-blue);
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+    }
+
+    .btn-toggle-active {
+      background: var(--bg-violet-light);
+      color: var(--color-violet);
+      border-color: var(--border-violet);
+    }
+
+    /* Ana Sahne Alanı */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .slide-container {
+      max-width: 1380px;
+      width: 100%;
+      margin: 0 auto;
+      display: none;
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide-container.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Slayt Başlık Kartı */
+    .slide-header-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      padding: 18px 24px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .slide-header-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .slide-index-pill {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .slide-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .slide-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Slayt İçerik Izgarası */
+    .slide-body-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .slide-body-grid.full-width {
+      grid-template-columns: 1fr;
+    }
+
+    /* Kart Yapıları */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      padding: 22px 24px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: -8px;
+      margin-bottom: 14px;
+    }
+
+    /* Liste Öğeleri ve Vurgular */
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bullet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .bullet-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .bullet-content strong {
+      font-weight: 700;
+      display: block;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .bullet-content p {
+      color: var(--text-muted);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    /* Kod ve Parametre Blokları */
+    .code-badge {
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* Renk Kartuşları */
+    .theme-blue .slide-index-pill { background: var(--bg-blue-light); color: var(--color-blue); border: 1px solid var(--border-blue); }
+    .theme-blue .card-title { color: var(--color-blue); }
+    .theme-blue .bullet-icon { background: var(--bg-blue-light); color: var(--color-blue); }
+    .theme-blue .code-badge { background: var(--bg-blue-light); color: var(--color-blue); border: 1px solid var(--border-blue); }
+
+    .theme-cyan .slide-index-pill { background: var(--bg-cyan-light); color: var(--color-cyan); border: 1px solid var(--border-cyan); }
+    .theme-cyan .card-title { color: var(--color-cyan); }
+    .theme-cyan .bullet-icon { background: var(--bg-cyan-light); color: var(--color-cyan); }
+    .theme-cyan .code-badge { background: var(--bg-cyan-light); color: var(--color-cyan); border: 1px solid var(--border-cyan); }
+
+    .theme-green .slide-index-pill { background: var(--bg-green-light); color: var(--color-green); border: 1px solid var(--border-green); }
+    .theme-green .card-title { color: var(--color-green); }
+    .theme-green .bullet-icon { background: var(--bg-green-light); color: var(--color-green); }
+    .theme-green .code-badge { background: var(--bg-green-light); color: var(--color-green); border: 1px solid var(--border-green); }
+
+    .theme-amber .slide-index-pill { background: var(--bg-amber-light); color: var(--color-amber); border: 1px solid var(--border-amber); }
+    .theme-amber .card-title { color: var(--color-amber); }
+    .theme-amber .bullet-icon { background: var(--bg-amber-light); color: var(--color-amber); }
+    .theme-amber .code-badge { background: var(--bg-amber-light); color: var(--color-amber); border: 1px solid var(--border-amber); }
+
+    .theme-violet .slide-index-pill { background: var(--bg-violet-light); color: var(--color-violet); border: 1px solid var(--border-violet); }
+    .theme-violet .card-title { color: var(--color-violet); }
+    .theme-violet .bullet-icon { background: var(--bg-violet-light); color: var(--color-violet); }
+    .theme-violet .code-badge { background: var(--bg-violet-light); color: var(--color-violet); border: 1px solid var(--border-violet); }
+
+    .theme-rose .slide-index-pill { background: var(--bg-rose-light); color: var(--color-rose); border: 1px solid var(--border-rose); }
+    .theme-rose .card-title { color: var(--color-rose); }
+    .theme-rose .bullet-icon { background: var(--bg-rose-light); color: var(--color-rose); }
+    .theme-rose .code-badge { background: var(--bg-rose-light); color: var(--color-rose); border: 1px solid var(--border-rose); }
+
+    /* Karşılaştırma Kutuları */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .compare-box {
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .compare-box.active-flow {
+      background: var(--bg-blue-light);
+      border-color: var(--border-blue);
+    }
+
+    .compare-box.manual-flow {
+      background: var(--bg-amber-light);
+      border-color: var(--border-amber);
+    }
+
+    .compare-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .compare-tag.tag-blue { background: #dbeafe; color: var(--color-blue); }
+    .compare-tag.tag-amber { background: #fef3c7; color: var(--color-amber); }
+
+    /* Plotly Konteyneri */
+    .chart-card {
+      min-height: 380px;
+      position: relative;
+    }
+
+    .chart-container {
+      width: 100%;
+      height: 100%;
+      min-height: 340px;
+    }
+
+    /* Konuşmacı Notları Paneli (Speaker Notes Drawer) */
+    .speaker-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-top: 2px solid var(--color-violet);
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+      padding: 18px 32px;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 100;
+      max-height: 40vh;
+      overflow-y: auto;
+    }
+
+    .speaker-drawer.open {
+      transform: translateY(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .drawer-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-violet);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drawer-body {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #1e293b;
+      background: var(--bg-violet-light);
+      border: 1px solid var(--border-violet);
+      padding: 14px 18px;
+      border-radius: 12px;
+    }
+
+    /* Alt Çubuk (Footer / Keyboard hints) */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border-color);
+      padding: 10px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .kbd-hints {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    kbd {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    /* Presenter View (İkili Görünüm) */
+    body.presenter-mode main {
+      padding-bottom: 160px;
+    }
+
+    body.presenter-mode .speaker-drawer {
+      transform: translateY(0);
+      max-height: 25vh;
+    }
+
+    /* SVG İkonlar için stil */
+    .icon-svg {
+      width: 14px;
+      height: 14px;
+      stroke-width: 2.5;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .slide-body-grid {
+        grid-template-columns: 1fr;
+      }
+      .chart-card {
+        min-height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Üst Navigasyon Çubuğu -->
+  <header>
+    <div class="brand-block">
+      <span class="badge-persona">Teknik Sunum</span>
+      <div>
+        <div class="brand-title">SAP IAM ve JML Kurumsal Gecis Sunumu</div>
+        <div class="brand-subtitle">Teknik Paydaslar Bilgilendirme ve Kapsam Kılavuzu</div>
+      </div>
+    </div>
+
+    <div class="nav-controls">
+      <div class="slide-dots" id="dotsContainer">
+        <button class="slide-dot active" onclick="goToSlide(0)" title="Slayt 1">1</button>
+        <button class="slide-dot" onclick="goToSlide(1)" title="Slayt 2">2</button>
+        <button class="slide-dot" onclick="goToSlide(2)" title="Slayt 3">3</button>
+        <button class="slide-dot" onclick="goToSlide(3)" title="Slayt 4">4</button>
+        <button class="slide-dot" onclick="goToSlide(4)" title="Slayt 5">5</button>
+        <button class="slide-dot" onclick="goToSlide(5)" title="Slayt 6">6</button>
+      </div>
+
+      <button class="btn" onclick="prevSlide()" title="Onceki Slayt (Sol Ok)">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+        Geri
+      </button>
+
+      <button class="btn btn-primary" onclick="nextSlide()" title="Sonraki Slayt (Sag Ok veya Bosluk)">
+        Ileri
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+
+      <button class="btn" id="notesToggleBtn" onclick="toggleSpeakerNotes()" title="Konusmaci Notlarini Ac/Kapat (N)">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Notlar
+      </button>
+
+      <button class="btn" onclick="toggleFullscreen()" title="Tam Ekran (F)">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Ana Slayt Alani -->
+  <main>
+
+    <!-- SLAYT 1 -->
+    <section class="slide-container active theme-blue" id="slide-0">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 1 / 6 • Regülasyon ve Kapsam</span>
+          <h1 class="slide-title">SAP IAS Zorunluluğu ve Başlangıç Kapsamı</h1>
+          <div class="slide-subtitle">13 Kasım 2026 SAP KBA 2791410 Direktifi ve Kademeli Başlangıç Modeli</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">Teknik Zorunluluk ve Odaklanılan Kapsam</div>
+          <div class="card-subtitle">Mevcut İK ve BT yatırımlarını koruyarak temel yaşam döngüsünü bağlama</div>
+          
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>SAP KBA 2791410 Direktifi (13 Kasım 2026)</strong>
+                <p>SuccessFactors üzerindeki temel şifreli (Basic Auth) erişim desteği kalıcı olarak sonlandırılacaktır. Tüm kullanıcılar ve API entegrasyonları için SAP Cloud Identity Services (IAS) kullanımı teknik zorunluluk haline gelmektedir.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Standart İşe Giriş (Birthright Access)</strong>
+                <p>İşe yeni başlayan personelin unvanı gereği alması gereken risksiz temel hesapların (Fiori ESS izin, bordro, kurumsal portallar) Active Directory grupları üzerinden otomatik açılması.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>İşten Ayrılış (Leaver Revocation)</strong>
+                <p>Sözleşmesi sonlanan personelin AD hesabı kapatıldığında tüm SAP ve BTP oturumlarının aynı gün içinde merkezi olarak kilitlenmesi ve yetim hesap (orphan account) riskinin sıfırlanması.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">Kademeli Geçiş Yol Haritası ve Regülasyon Takvimi</div>
+          <div class="card-subtitle">Faz 1 devreye alımı, Faz 2 planlaması ve 13 Kasım 2026 SAP IAS zorunluluğu</div>
+          <div id="chart-slide-1" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLAYT 2 -->
+    <section class="slide-container theme-violet" id="slide-1">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 2 / 6 • Mimari Sorumluluk Dağılımı</span>
+          <h1 class="slide-title">Yetki Tasarımı ile Yetki Dağıtımı Ayrımı</h1>
+          <div class="slide-subtitle">Modül İçi Fonksiyonel Kilit vs. Merkezi Otomasyon Anahtarı İlkesi</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">Mimari İş Bölümü ve RACI Çerçevesi</div>
+          <div class="card-subtitle">Biz yetki tasarlamayacağız, S/4HANA tarafındaki yetkileri danışmanlar PFCG içinde hazırlayacak</div>
+
+          <div class="compare-grid">
+            <div class="compare-box active-flow">
+              <span class="compare-tag tag-blue">Aşama 1: Yetki Tasarımı (Modül İçi)</span>
+              <strong style="font-size: 13px; color: var(--color-blue);">Kilit Mekanizması</strong>
+              <p style="font-size: 12px; color: var(--text-muted);">
+                S/4HANA'da <strong>PFCG</strong> işlem koduyla iş rolleri oluşturulur. SAC'de takımlar, BTP CAP'te <code>xs-security.json</code> scopeları yazılır. Çıktı: Teknik Rol Adı (Örn: <code>Z_BR_GL_ACCOUNTANT_1000</code>).
+              </p>
+            </div>
+
+            <div class="compare-box manual-flow">
+              <span class="compare-tag tag-amber">Aşama 2: Yetki Dağıtımı (Merkezi BTP/IPS)</span>
+              <strong style="font-size: 13px; color: var(--color-amber);">Anahtar Teslimi</strong>
+              <p style="font-size: 12px; color: var(--text-muted);">
+                AD Güvenlik Grubu (<code>SG_SAP_*</code>) ile teknik rol eşleştirilir. Kullanıcı işe girdiğinde IPS rolü otomatik yazar. Modül içine kullanıcı açmak için bir daha elle girilmez.
+              </p>
+            </div>
+          </div>
+
+          <ul class="bullet-list" style="margin-top: 16px;">
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Sıfır Manuel Bilet Hedefi</strong>
+                <p>Modül danışmanları rolleri bir defaya mahsus tanımlayıp teknik isimleri teslim ettikten sonra, her yeni personel için modül ekranlarına elle giriş yapılmaz.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">Kilit ve Anahtar: AD Grubu - Rol Dağıtım Akışı</div>
+          <div class="card-subtitle">Entra ID Güvenlik Grupları &rarr; SAP IPS Motoru &rarr; S/4HANA PFCG Rolleri (Sankey)</div>
+          <div id="chart-slide-2" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLAYT 3 -->
+    <section class="slide-container theme-green" id="slide-2">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 3 / 6 • Kapsam ve Veri Kısıtları</span>
+          <h1 class="slide-title">Otomasyon Sınırları (%80 / %20) ve Türetilmiş Roller</h1>
+          <div class="slide-subtitle">Riskli Finansal Yetkilerin Korunması ve Organizasyon Seviyesi Çözümü</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">Taktiksel Kapsam ve Veri Kısıtı Kuralı</div>
+          <div class="card-subtitle">Tüm yetkileri ilk günden otomatikleştirmek yerine risk dengesi kurma</div>
+
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Otomasyona Alınacak Standart Alan (%80 Hacim)</strong>
+                <p>İzin alma, masraf girişi, bordro görüntüleme (Fiori ESS), genel kurumsal portallar ve departmanın temel operasyonel ekranları AD grupları üzerinden tam otomatik atanır.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Manuel Süreçte Bırakılacak Alan (%20 Hacim)</strong>
+                <p>Finansal ödeme onayları (F110 vb.), satıcı ana verisi açma/değiştirme ve SoD çakışması taşıyan riskli yetkiler için eskisi gibi onay formu işletilir, denetim riski oluşmaz.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Türetilmiş Roller (Derived Roles) Gereksinimi</strong>
+                <p>Standart SCIM protokolü ve IPS, PFCG içindeki organizasyon seviyelerini satır satır dolduramaz. S/4HANA yetki ekibi Şirket Kodu gibi veri kısıtları gömülü türetilmiş roller (Örn: <code>Z_BR_GL_ACCOUNTANT_1000</code>) hazırlar.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">Yetki Hiyerarşisi ve Türetilmiş Rol (Derived Role) Kırılımı</div>
+          <div class="card-subtitle">%80 Standart Otomasyon vs. %20 Manuel Onay ve Şirket Kodu / Tesis Dallanması</div>
+          <div id="chart-slide-3" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLAYT 4 -->
+    <section class="slide-container theme-cyan" id="slide-3">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 4 / 6 • Güvenli Bağlantı ve Kimlik İletimi</span>
+          <h1 class="slide-title">Kurulum Hattı, Tekil MFA ve Principal Propagation</h1>
+          <div class="slide-subtitle">Cloud Connector Tüneli, Entra ID Giriş Güvenliği ve X.509 Sertifika Mimarisi</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">Bağlantı Mimarisi ve Kullanıcı Deneyimi İlkeleri</div>
+          <div class="card-subtitle">Doğrudan port açmadan güvenli tünel ve kesintisiz tek oturum</div>
+
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>SAP Cloud Connector (SCC) Tüneli</strong>
+                <p>Şirket içi ağdan BTP'ye doğru ters tünel (reverse tunnel) açılır. S/4HANA üzerinde <code>/sap/bc/scim</code> ICF servisi güvenli biçimde BTP IPS motoruna bağlanır, dışarıdan port açılmaz.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Tek Merkezli MFA (Çift Doğrulamayı Önleme)</strong>
+                <p>Hem Microsoft'ta hem SAP'de iki kere kod sormasın; tüm giriş güvenliği Microsoft/AD üzerinde kalsın, SAP IAS tarafı proxy (pass-through) çalışarak aradan çekilsin.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Principal Propagation (Kısa Ömürlü X.509 Sertifikası)</strong>
+                <p>BTP'den S/4HANA'ya çağrılarda statik servis şifreleri kullanılmaz. SCC oturum anında kullanıcı adına birkaç dakika geçerli X.509 istemci sertifikası üretir; S/4HANA <code>CERTRULE</code> kuralı ile kimlik doğrulanır.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">Uçtan Uca Doğrulama ve Güvenli Erişim Hattı</div>
+          <div class="card-subtitle">Entra ID (Tekil MFA) &rarr; IAS (Proxy) &rarr; Cloud Connector &rarr; X.509 Principal Propagation &rarr; S/4HANA</div>
+          <div id="chart-slide-4" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLAYT 5 -->
+    <section class="slide-container theme-amber" id="slide-4">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 5 / 6 • Hedef Sistem Güvenlik Parametreleri</span>
+          <h1 class="slide-title">Mevcut Yetkileri Koruma Parametreleri ve SU01 Temizliği</h1>
+          <div class="slide-subtitle">authoritative=false, delete.threshold=10 ve Brownfield Eşitlemesi</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">Hedef Sistemde Tanımlanması Önerilen Koruyucu Parametreler</div>
+          <div class="card-subtitle">Sistemin aksamaması ve beklenmeyen yetki kayıplarının önlenmesi</div>
+
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Mevcut Rollerin Silinmesini Engelleme (<span class="code-badge">authoritative = false</span>)</strong>
+                <p>Canlıya geçişte sistem sadece AD'den gelen yeni rolleri ekler; S/4HANA içinde önceden elle atanmış yetkilere dokunmaz. Kimsenin ekranı kapanmaz, iş sürekliliği korunur.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Toplu İşlem Eşiği (<span class="code-badge">ips.delete.threshold = 10</span>)</strong>
+                <p>Dizin tarafında yanlış bir OU taşınması veya betik hatasında, kullanıcıların %10'undan fazlasını silmeye kalkan senkronizasyon otomatik olarak kendini durdurur.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Acil Durum ve Firefighter Filtresi (<span class="code-badge">Z_FF_* | Z_EXC_*</span>)</strong>
+                <p>Basis uzmanlarının kriz anlarında açacağı kurtarma yetkileri regex filtresiyle IPS kapsamı dışında tutulur, otomasyon tarafından silinmez.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Brownfield SU01 Kullanıcı Temizliği (Ön Şart)</strong>
+                <p>Canlıya geçmeden önce eski S/4HANA kullanıcılarının personel numarası alanlarını (Alias / externalId) güncellememiz gerekiyor, yoksa sistem bu kullanıcıları tanıyamayıp hata verebilir.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">Toplu İşlem Hata Eşiği ve Koruma Mekanizması Simülasyonu</div>
+          <div class="card-subtitle">delete.threshold = 10 parametresinin hatalı silmelerde sistemi güvenli durdurma mantığı</div>
+          <div id="chart-slide-5" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLAYT 6 -->
+    <section class="slide-container theme-rose" id="slide-5">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 6 / 6 • Teslimatlar ve Test Süreci</span>
+          <h1 class="slide-title">Ekiplerden Beklenen Asgari Teslimatlar ve Simülasyon</h1>
+          <div class="slide-subtitle">İK, BT ve Basis Ön Koşulları ile Risksiz Devreye Alma Adımı</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">Ekipler Arası Asgari Teslimat Matrisi</div>
+          <div class="card-subtitle">Süreci bürokrasiye boğmadan masaya getirilmesi beklenen somut kalemler</div>
+
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>İK / SuccessFactors Ekibi</strong>
+                <p>Değişmez tekil anahtar (<code>personIdExternal</code>) ve standart pozisyon kodları (<code>JobCode</code> / Position ID) listesi.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>BT Altyapı / Dizin Hizmetleri Ekibi</strong>
+                <p><code>SG_SAP_*</code> grup isimlendirme kuralı, <code>employeeID</code> eşlemesi ve Graph API throttling koruma filtresi (<code>displayName startswith 'SG_SAP_'</code>, <code>bulk.page.size = 100</code>).</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>SAP Basis ve Yetki Danışmanları</strong>
+                <p>PFCG teknik rol isimleri envanteri, Cloud Connector <code>/sap/bc/scim</code> eşlemesi ve canlıya geçiş öncesi SU01 Alias temizliği.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Doğrulama Adımı: IPS Simülasyon Modu (Simulation Mode)</strong>
+                <p>Canlı sisteme yazmadan önce <em>Run Simulation</em> tetiklenir; üretilen CSV raporunda eklenecek, kilitlenecek ve değiştirilecek kayıt sayıları doğrulanır.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">Ekiplerin Teslim Edeceği Ön Koşul Bileşenleri</div>
+          <div class="card-subtitle">İK, IT Altyapı ve SAP Basis ekiplerinin asgari teslimat ve simülasyon kontrol listesi</div>
+          <div id="chart-slide-6" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Konusmaci Notlari Paneli (Speaker Notes Drawer) -->
+  <div class="speaker-drawer" id="speakerDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span id="drawerSlideTitle">Konuşmacı Metni (Speaker Notes)</span>
+      </div>
+      <button class="btn" style="padding: 4px 10px; font-size: 11px;" onclick="toggleSpeakerNotes()">Kapat</button>
+    </div>
+    <div class="drawer-body" id="drawerContent">
+      <!-- Dinamik olarak JS ile dolacak -->
+    </div>
+  </div>
+
+  <!-- Alt Bilgi Cubugu (Footer) -->
+  <footer>
+    <div class="kbd-hints">
+      <span>Klavye Kısayolları:</span>
+      <span><kbd>←</kbd> <kbd>→</kbd> Slayt Geçişi</span>
+      <span><kbd>Space</kbd> İleri</span>
+      <span><kbd>N</kbd> Notlar Paneli</span>
+      <span><kbd>P</kbd> Sunucu Modu</span>
+      <span><kbd>F</kbd> Tam Ekran</span>
+    </div>
+    <div>
+      <span id="slideCounter">Slayt 1 / 6</span>
+    </div>
+  </footer>
+
+  <script>
+    // Konuşmacı Metinleri (Speaker Notes Verbatim)
+    const speakerNotes = [
+      // Slayt 1
+      `"Değerli çalışma arkadaşlarım, merhabalar. Şirketimizin SAP canlıya geçiş sürecinde kimlik doğrulama ve yetki yaşam döngüsünü (IAM/JML) nasıl kurgulayabileceğimizi araştırdık ve teknik paydaşlarımızla paylaşmak üzere bu notları derledik.
+
+İlk olarak masadaki en net teknik zorunlulukla başlayalım: SAP'nin yayımladığı 2791410 numaralı resmi bültene göre, 13 Kasım 2026 itibarıyla SuccessFactors üzerindeki temel şifreli girişler tamamen kapatılıyor ve SAP IAS kullanımı zorunlu kılınıyor. Dolayısıyla bu entegrasyonu zaten kurmamız gerekiyor.
+
+Gözlemlediğimiz kadarıyla, projelerin ilk günlerinde her türlü istisnai senaryoyu tek seferde otomatikleştirmeye çalışmak süreci kilitleyebiliyor. Bu nedenle ilk etapta kapsamı dar ve net tutmamız faydalı olacaktır. İK ve BT ekiplerimizin SuccessFactors ile Active Directory arasında kurduğu mevcut yapıyı hiç bozmadan; ilk fazda sadece işe girenlerin standart hesaplarının açılması ve işten ayrılan personelin hesaplarının anında kilitlenmesi akışına odaklanmayı öneriyoruz."`,
+
+      // Slayt 2
+      `"Yetkilendirme tarafında en çok merak edilen konu şuydu: 'Yetkileri kim tasarlayacak, BTP içerideki rollerimize müdahale edecek mi?' Bu konuyu teknik olarak çok net bir zemine oturtmamız gerekiyor.
+
+Biz kesinlikle modül içine girip yetki tasarlamayacağız. S/4HANA tarafındaki fonksiyonel yetkileri danışmanlarımız yine eskisi gibi PFCG içinde hazırlayacak. BTP veya IPS motoru tek başına modüllerin içine girip sıfırdan yetki üretemez. Danışmanlarımız kilidi modülün içinde yapacak, biz sadece o kilitlerin teknik isimlerini alıp Active Directory gruplarına bağlayacağız.
+
+Böylece bir çalışan işe girdiğinde veya departmanı belirlendiğinde, IPS bu rolleri kullanıcıya arka planda otomatik olarak atayacak. Temel kazanımımız şu olacak: Modül danışmanlarımız ya da Basis ekibimiz her personel için modül içine girip tek tek elle kullanıcı açıp rol bağlama işiyle uğraşmak zorunda kalmayacak."`,
+
+      // Slayt 3
+      `"Sahada karşılaşılan en büyük çekincelerden biri 'Kritik finansal yetkileri de mi sisteme bağlayacağız?' sorusuydu. Burada taktiksel bir sınır çizmemiz gerekiyor: Tüm yetkileri ilk günden otomatikleştirmek yerine; standart işe giriş ekranları, yani personelin izin, bordro veya departman ana ekranları otomatik gelsin. Riskli finansal onaylar veya özel yetkiler için yine eskisi gibi onay formu işletilsin, böylece denetim riski oluşmasın. Hacmin yüzde 80'ini otomatikleştirip, riskli yüzde 20'yi mevcut onay süreçlerinde bırakmak canlıya geçişi çok rahatlatacaktır.
+
+Burada teknik bir kısıtımız var: IPS motoru, bir muhasebe rolünün içine girip 'Sen şirket kodu 1000'i göreceksin' diyerek satır bazlı parametre yazamaz. Bu durum SCIM standardının doğasından kaynaklanıyor. Bu kısıtı aşmak için S/4HANA tarafında modül ekibimizin 'Türetilmiş Rol' (Derived Role) modelini kullanması gerekiyor. Yani Z_BR_GL_ACCOUNTANT_1000 gibi şirket kodu önceden gömülmüş teknik roller hazırlanırsa, biz bu rolleri ilgili AD grubuna bağlayıp veri kısıtını eksiksiz sağlayabiliyoruz."`,
+
+      // Slayt 4
+      `"Bağlantı ve güvenlik tarafına bakarsak; sistemler arasındaki iletişim şirket içi ağımızda kurulu SAP Cloud Connector üzerinden gerçekleşecek. İnternetten S/4HANA'ya doğrudan port açmıyoruz; Cloud Connector dışarıya doğru güvenli bir tünel açarak /sap/bc/scim servisini BTP'ye sunuyor.
+
+Kullanıcı deneyimi açısından en kritik kararımız MFA tarafında: Kullanıcılarımızın hem kurumsal Microsoft girişinde hem de SAP ekranında iki kere kod girmek zorunda kalmasını istemiyoruz. Hem Microsoft'ta hem SAP'de iki kere kod sormasın; tüm giriş güvenliği Microsoft ve Active Directory üzerinde kalsın, SAP tarafı aradan çekilsin istiyoruz. IAS bu modelde doğrulama yapmayacak, sadece güven ilişkisini sağlayacak.
+
+BTP üzerindeki uygulamalardan S/4HANA'ya erişirken de statik bir sistem kullanıcısı şifresi kullanmayacağız. Cloud Connector, oturum anında kullanıcı adına birkaç dakika geçerli olan geçici bir X.509 dijital sertifikası üretecek. S/4HANA'daki CERTRULE kuralı da bu sertifikayı okuyup kullanıcının kendi yetkileriyle işlem yapmasını sağlayacak."`,
+
+      // Slayt 5
+      `"Canlıya geçiş anında 'Acaba bir hata olur da çalışanların mevcut yetkileri silinir mi?' kaygısını gidermek için hedef sistemde uygulayacağımız koruyucu parametreler bulunuyor.
+
+Öncelikle, authoritative parametresini false olarak ayarlayacağız. Bu şu anlama geliyor: Sistem sadece AD'den gelen yeni yetkileri personele ekleyecek; ancak sistemin içinde daha önceden elle verilmiş mevcut yetkilere kesinlikle dokunmayacak. Böylece kimsenin ekranı kapanmayacak.
+
+İkinci olarak, dizin tarafında yapılacak bir kaza sonucu personelin topluca silinmesini engellemek için delete.threshold = 10 parametresini koyuyoruz. Tek bir döngüde kullanıcı tabanının yüzde 10'undan fazlasını etkileyen olağandışı bir durum olursa sistem senkronizasyonu anında durduracak. Ayrıca Basis ekibimizin kriz anında vereceği geçici yetkiler silinmesin diye Z_FF_ ve Z_EXC_ ön ekli rolleri otomasyondan muaf tutacağız.
+
+Burada Basis ekibimizle birlikte yapmamız gereken çok kritik bir ön hazırlık var: Canlıya geçmeden önce eski S/4HANA kullanıcılarının personel numarası alanlarını güncellememiz gerekiyor, yoksa sistem bu kullanıcıları tanıyamayıp hata verebilir. Mevcut SU01 kullanıcılarının Alias alanlarına personel numaraları yazılmazsa, IPS içerideki mevcut kullanıcıyı tanıyamaz ve aynı isimle yeni kayıt açmaya çalışırken sistem çakışma hatası üretir."`,
+
+      // Slayt 6
+      `"Toplantımızı toparlarken, süreci bürokrasiye boğmadan her birimimizden masaya getirmesini beklediğimiz asgari teslimat kalemlerini özetlemek istiyoruz.
+
+İK tarafında; eşleşmelerin soyadı değişikliği gibi durumlardan etkilenmemesi için değişmez tekil anahtarımız personel numarası olacak ve pozisyon kodlarımız standart tutulacak.
+
+BT Altyapı ekibimizden; SAP gruplarını diğer kurumsal gruplarla karıştırmamak adına SG_SAP_ ile başlayan standart gruplar açmalarını, dizindeki binlerce grup yüzünden Graph API hız limitlerine takılmamak için de bu filtreyi tanımlamalarını rica edeceğiz.
+
+Basis ve modül yetki ekiplerimizden ise; hazırlanan PFCG rollerinin teknik ad listesini, Cloud Connector üzerinde SCIM yolunun açılmasını ve canlıya geçiş öncesinde mevcut kullanıcıların Alias temizliğinin tamamlanmasını bekliyoruz.
+
+Bu hazırlıklar tamamlandıktan sonra doğrudan canlıya geçmeyeceğiz. IPS motorunun 'Simülasyon Modu' bulunuyor. Bu modu çalıştırarak gerçek sisteme hiçbir şey yazmadan bir CSV raporu alacağız; kaç kullanıcı açılacak, kimlere hangi roller gidecek, bunları tek tek teyit ettikten sonra canlı geçiş onayını vereceğiz. Katılımınız ve destekleriniz için teşekkür ederim; sorularınız varsa memnuniyetle yanıtlamak isterim."`
+    ];
+
+    let currentSlide = 0;
+    const totalSlides = 6;
+    let chartsInitialized = {};
+
+    function updateSlideUI() {
+      // Slayt konteynerlerini güncelle
+      for (let i = 0; i < totalSlides; i++) {
+        const slide = document.getElementById(`slide-${i}`);
+        if (slide) {
+          slide.classList.toggle('active', i === currentSlide);
+        }
+      }
+
+      // Nokta butonlarını güncelle
+      const dots = document.querySelectorAll('.slide-dot');
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+
+      // Sayaç metni
+      document.getElementById('slideCounter').innerText = `Slayt ${currentSlide + 1} / ${totalSlides}`;
+
+      // Konuşmacı notu içeriği
+      const drawerContent = document.getElementById('drawerContent');
+      const drawerTitle = document.getElementById('drawerSlideTitle');
+      if (drawerContent) {
+        drawerContent.innerHTML = speakerNotes[currentSlide].replace(/\n\n/g, '<br><br>');
+      }
+      if (drawerTitle) {
+        drawerTitle.innerText = `Slayt ${currentSlide + 1} Konuşmacı Metni (Speaker Notes)`;
+      }
+
+      // Grafikleri yükle / yeniden boyutlandır
+      renderChartForSlide(currentSlide);
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlideUI();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlideUI();
+      }
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < totalSlides) {
+        currentSlide = index;
+        updateSlideUI();
+      }
+    }
+
+    function toggleSpeakerNotes() {
+      const drawer = document.getElementById('speakerDrawer');
+      const btn = document.getElementById('notesToggleBtn');
+      drawer.classList.toggle('open');
+      btn.classList.toggle('btn-toggle-active');
+    }
+
+    function togglePresenterMode() {
+      document.body.classList.toggle('presenter-mode');
+      const drawer = document.getElementById('speakerDrawer');
+      drawer.classList.toggle('open', document.body.classList.contains('presenter-mode'));
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    }
+
+    // Klavye Kısayolları Dinleyicisi
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'n' || e.key === 'N') {
+        toggleSpeakerNotes();
+      } else if (e.key === 'p' || e.key === 'P') {
+        togglePresenterMode();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key >= '1' && e.key <= '6') {
+        goToSlide(parseInt(e.key) - 1);
+      }
+    });
+
+    // Plotly Grafik Fonksiyonları
+    function renderChartForSlide(index) {
+      setTimeout(() => {
+        switch(index) {
+          case 0:
+            initChartSlide1();
+            break;
+          case 1:
+            initChartSlide2();
+            break;
+          case 2:
+            initChartSlide3();
+            break;
+          case 3:
+            initChartSlide4();
+            break;
+          case 4:
+            initChartSlide5();
+            break;
+          case 5:
+            initChartSlide6();
+            break;
+        }
+      }, 50);
+    }
+
+    // Slayt 1 Grafiği: Kademeli Faz Çizelgesi ve Regülasyon Eşiği (Timeline / Yol Haritası)
+    function initChartSlide1() {
+      const targetDiv = document.getElementById('chart-slide-1');
+      if (!targetDiv) return;
+
+      const trace = {
+        type: 'bar',
+        orientation: 'h',
+        y: [
+          '1. İK - Dizin Altyapısı',
+          '2. Faz 1: Standart Giriş & Çıkış',
+          '3. Faz 2: Departman Değişimi',
+          '4. Yasal Zorunluluk Eşiği'
+        ],
+        x: [12, 6, 9, 1],
+        base: [0, 12, 18, 27],
+        marker: {
+          color: ['#94a3b8', '#2563eb', '#0891b2', '#e11d48']
+        },
+        text: [
+          'Mevcut Aktif Akış (SF -> AD)',
+          'Öncelikli Faz (Birthright & Leaver)',
+          'Planlanan Kapsam (Mover & Dinamik)',
+          '13 Kasım 2026 (KBA 2791410)'
+        ],
+        textposition: 'auto',
+        hoverinfo: 'text+y'
+      };
+
+      const layout = {
+        font: { family: 'Poppins, sans-serif', size: 10, color: '#334155' },
+        margin: { l: 190, r: 25, t: 25, b: 45 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        xaxis: {
+          title: 'Zaman Çizelgesi (Aylar İtibarıyla İlerleme Bandı)',
+          range: [0, 32],
+          gridcolor: '#e2e8f0'
+        },
+        yaxis: {
+          autorange: 'reversed'
+        },
+        showlegend: false
+      };
+
+      Plotly.react(targetDiv, [trace], layout, { responsive: true, displayModeBar: false });
+    }
+
+    // Slayt 2 Grafiği: Kilit ve Anahtar: AD Grubu - Rol Dağıtım Akışı (Sankey)
+    function initChartSlide2() {
+      const targetDiv = document.getElementById('chart-slide-2');
+      if (!targetDiv) return;
+
+      const data = [{
+        type: 'sankey',
+        orientation: 'h',
+        node: {
+          pad: 14,
+          thickness: 18,
+          line: { color: '#cbd5e1', width: 0.5 },
+          label: [
+            'AD: SG_SAP_MM_BUYER',
+            'AD: SG_SAP_FI_CLERK',
+            'AD: SG_SAP_SD_SALES',
+            'SAP IPS Motoru (AD Grup Eşleme & Otomatik Dağıtım)',
+            'PFCG: Z_MM_BUYER_OP (Satınalma Operasyon)',
+            'PFCG: Z_FI_AP_CLERK (Fatura & Borç Muhasebesi)',
+            'PFCG: Z_SD_SALES_OP (Sipariş & Teslimat)'
+          ],
+          color: [
+            '#3b82f6', '#0891b2', '#059669',
+            '#7c3aed',
+            '#2563eb', '#0891b2', '#059669'
+          ]
+        },
+        link: {
+          source: [0, 1, 2, 3, 3, 3],
+          target: [3, 3, 3, 4, 5, 6],
+          value:  [35, 30, 25, 35, 30, 25],
+          color: [
+            'rgba(59, 130, 246, 0.3)',
+            'rgba(8, 145, 178, 0.3)',
+            'rgba(5, 150, 105, 0.3)',
+            'rgba(37, 99, 235, 0.3)',
+            'rgba(8, 145, 178, 0.3)',
+            'rgba(5, 150, 105, 0.3)'
+          ]
+        }
+      }];
+
+      const layout = {
+        font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
+        margin: { l: 15, r: 15, t: 15, b: 15 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent'
+      };
+
+      Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
+    }
+
+    // Slayt 3 Grafiği: Yetki Hiyerarşisi ve Türetilmiş Rol Kırılımı (Sunburst)
+    function initChartSlide3() {
+      const targetDiv = document.getElementById('chart-slide-3');
+      if (!targetDiv) return;
+
+      const data = [{
+        type: 'sunburst',
+        ids: [
+          'TOTAL',
+          'AUTO', 'MANUAL',
+          'COMMON', 'DERIVED_1000', 'DERIVED_2000', 'STD_SD',
+          'SOD_RISK', 'FIN_APPROVAL'
+        ],
+        labels: [
+          'Tüm SAP Rolleri',
+          '%80 Otomatik Dağıtım (IPS)',
+          '%20 Manuel Onay (GRC/Form)',
+          'Ortak Roller (ESS İzin/Masraf)',
+          'Türetilmiş: Tesis 1000 (Z_MM_1000)',
+          'Türetilmiş: Tesis 2000 (Z_MM_2000)',
+          'Standart Depo & Satış',
+          'Satıcı Ana Veri (SoD Riskli)',
+          'Ödeme & Ters Kayıt (Finans)'
+        ],
+        parents: [
+          '',
+          'TOTAL', 'TOTAL',
+          'AUTO', 'AUTO', 'AUTO', 'AUTO',
+          'MANUAL', 'MANUAL'
+        ],
+        values: [
+          100,
+          80, 20,
+          30, 20, 15, 15,
+          12, 8
+        ],
+        branchvalues: 'total',
+        marker: {
+          colors: [
+            '#0f172a',
+            '#059669', '#d97706',
+            '#34d399', '#10b981', '#059669', '#047857',
+            '#f59e0b', '#b45309'
+          ]
+        },
+        textinfo: 'label+percent entry',
+        hoverinfo: 'label+value'
+      }];
+
+      const layout = {
+        font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
+        margin: { l: 10, r: 10, t: 10, b: 10 },
+        paper_bgcolor: 'transparent'
+      };
+
+      Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
+    }
+
+    // Slayt 4 Grafiği: Uçtan Uca Doğrulama ve Güvenli Erişim Hattı (Funnel Pipeline)
+    function initChartSlide4() {
+      const targetDiv = document.getElementById('chart-slide-4');
+      if (!targetDiv) return;
+
+      const data = [{
+        type: 'funnel',
+        y: [
+          '1. Fiori / Web Giriş Talebi',
+          '2. Entra ID (Tekil MFA)',
+          '3. SAP IAS (Proxy Modu)',
+          '4. Cloud Connector (SCC)',
+          '5. S/4HANA (X.509)'
+        ],
+        x: [100, 100, 100, 100, 100],
+        text: [
+          'Kullanıcı Başlatma (SSO)',
+          'Kurumsal Şifre + Tekil MFA (IdP)',
+          'Kimlik Belirteci Yönlendirme (MFA Pasif)',
+          'İç Ağ Ters Tüneli (Port Açılmaz)',
+          'Kısa Ömürlü X.509 Principal Propagation'
+        ],
+        textposition: 'inside',
+        textinfo: 'text',
+        marker: {
+          color: ['#64748b', '#0891b2', '#0284c7', '#2563eb', '#1d4ed8']
+        }
+      }];
+
+      const layout = {
+        font: { family: 'Poppins, sans-serif', size: 10, color: '#ffffff' },
+        margin: { l: 180, r: 20, t: 20, b: 20 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        yaxis: {
+          tickfont: { family: 'Poppins, sans-serif', size: 10, color: '#334155' }
+        }
+      };
+
+      Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
+    }
+
+    // Slayt 5 Grafiği: Toplu İşlem Hata Eşiği ve Koruma Mekanizması Simülasyonu
+    function initChartSlide5() {
+      const targetDiv = document.getElementById('chart-slide-5');
+      if (!targetDiv) return;
+
+      const xVals = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+      const processed = [0, 2, 4, 6, 8, 10, 10, 10, 10, 10, 10];
+      const blocked =   [0, 0, 0, 0, 0,  0,  2,  4,  6,  8, 10];
+
+      const trace1 = {
+        x: xVals,
+        y: processed,
+        name: 'İşlenen Silme Talebi (Normal Akış)',
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: { color: '#059669', width: 2.5 },
+        marker: { size: 6 }
+      };
+
+      const trace2 = {
+        x: xVals,
+        y: blocked,
+        name: 'Engellenen ve Korunan Hesaplar (Job Durduruldu)',
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: { color: '#e11d48', width: 2.5, dash: 'dot' },
+        marker: { size: 6 }
+      };
+
+      const layout = {
+        font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
+        margin: { l: 45, r: 20, t: 30, b: 40 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        xaxis: {
+          title: 'Dizinden Gelen Silme / Kilitleme Talebi Sayısı',
+          gridcolor: '#e2e8f0',
+          dtick: 2
+        },
+        yaxis: {
+          title: 'Hesap Adedi',
+          gridcolor: '#e2e8f0'
+        },
+        shapes: [{
+          type: 'line',
+          x0: 10,
+          x1: 10,
+          y0: 0,
+          y1: 10,
+          line: { color: '#d97706', width: 2, dash: 'dash' }
+        }],
+        annotations: [{
+          x: 10,
+          y: 9.5,
+          xref: 'x',
+          yref: 'y',
+          text: 'delete.threshold = 10 (Durdurma Eşiği)',
+          showarrow: true,
+          arrowhead: 2,
+          ax: 80,
+          ay: -25,
+          font: { color: '#d97706', size: 10, weight: 600 }
+        }],
+        legend: { orientation: 'h', x: 0, y: 1.15 }
+      };
+
+      Plotly.react(targetDiv, [trace1, trace2], layout, { responsive: true, displayModeBar: false });
+    }
+
+    // Slayt 6 Grafiği: Ekiplerin Teslim Edeceği Ön Koşul Bileşenleri (Checklist)
+    function initChartSlide6() {
+      const targetDiv = document.getElementById('chart-slide-6');
+      if (!targetDiv) return;
+
+      const data = [
+        {
+          name: 'İK Ekibi (SuccessFactors)',
+          type: 'bar',
+          orientation: 'h',
+          y: [
+            '1. İK: User ID',
+            '2. İK: Kurumsal E-Posta',
+            '3. İK: Personel No (PERNR)',
+            '4. IT: SG_SAP_* Grupları',
+            '5. IT: Graph API İzinleri',
+            '6. Basis: PFCG Derived Roller',
+            '7. Basis: SCC Tüneli',
+            '8. Ortak: IPS Simülasyonu'
+          ],
+          x: [1, 1, 1, 0, 0, 0, 0, 0],
+          marker: { color: '#059669' }
+        },
+        {
+          name: 'IT Altyapı (Entra ID)',
+          type: 'bar',
+          orientation: 'h',
+          y: [
+            '1. İK: User ID',
+            '2. İK: Kurumsal E-Posta',
+            '3. İK: Personel No (PERNR)',
+            '4. IT: SG_SAP_* Grupları',
+            '5. IT: Graph API İzinleri',
+            '6. Basis: PFCG Derived Roller',
+            '7. Basis: SCC Tüneli',
+            '8. Ortak: IPS Simülasyonu'
+          ],
+          x: [0, 0, 0, 1, 1, 0, 0, 0],
+          marker: { color: '#2563eb' }
+        },
+        {
+          name: 'SAP Basis & Modül',
+          type: 'bar',
+          orientation: 'h',
+          y: [
+            '1. İK: User ID',
+            '2. İK: Kurumsal E-Posta',
+            '3. İK: Personel No (PERNR)',
+            '4. IT: SG_SAP_* Grupları',
+            '5. IT: Graph API İzinleri',
+            '6. Basis: PFCG Derived Roller',
+            '7. Basis: SCC Tüneli',
+            '8. Ortak: IPS Simülasyonu'
+          ],
+          x: [0, 0, 0, 0, 0, 1, 1, 0],
+          marker: { color: '#7c3aed' }
+        },
+        {
+          name: 'Ortak Doğrulama',
+          type: 'bar',
+          orientation: 'h',
+          y: [
+            '1. İK: User ID',
+            '2. İK: Kurumsal E-Posta',
+            '3. İK: Personel No (PERNR)',
+            '4. IT: SG_SAP_* Grupları',
+            '5. IT: Graph API İzinleri',
+            '6. Basis: PFCG Derived Roller',
+            '7. Basis: SCC Tüneli',
+            '8. Ortak: IPS Simülasyonu'
+          ],
+          x: [0, 0, 0, 0, 0, 0, 0, 1],
+          marker: { color: '#e11d48' }
+        }
+      ];
+
+      const layout = {
+        font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
+        margin: { l: 185, r: 20, t: 25, b: 30 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        barmode: 'stack',
+        xaxis: {
+          title: 'Ön Koşul Durumu (Zorunlu Teslimat Kalemi)',
+          showticklabels: false,
+          gridcolor: '#e2e8f0',
+          range: [0, 1.2]
+        },
+        yaxis: {
+          autorange: 'reversed'
+        },
+        legend: { orientation: 'h', x: 0, y: 1.15 }
+      };
+
+      Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
+    }
+
+    // Sayfa Yüklendiğinde Başlat
+    window.addEventListener('DOMContentLoaded', () => {
+      updateSlideUI();
+    });
+
+    // Pencere boyutu değiştiğinde grafikleri yeniden boyutlandır
+    window.addEventListener('resize', () => {
+      const activeChart = document.querySelector(`.slide-container.active .chart-container`);
+      if (activeChart && activeChart.id) {
+        Plotly.Plots.resize(activeChart);
+      }
+    });
+  </script>
+</body>
+</html>
