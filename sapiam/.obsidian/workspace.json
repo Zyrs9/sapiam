@@ -13,12 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "09 - Rol Standartları, Yaşam Döngüsü ve İleri Seviye IAM Araştırmaları.md",
+                "file": "Ref.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "09 - Rol Standartları, Yaşam Döngüsü ve İleri Seviye IAM Araştırmaları"
+              "title": "Ref"
+            }
+          },
+          {
+            "id": "0750f280caac2847",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Ref.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Ref"
             }
           }
         ]
@@ -190,18 +204,29 @@
   },
   "active": "20930045ecb681d1",
   "lastOpenFiles": [
-    "discovery_and_ips_spec.md",
-    "index.html",
-    "sunum.html",
-    "Başlıksız.canvas",
+    "09 - Rol Standartları, Yaşam Döngüsü ve İleri Seviye IAM Araştırmaları.md",
+    "Ref.md",
+    "sunum_rol_standartlari.html",
+    "connectivity_service.pdf",
+    "Onaylanmayan 761830.crdownload",
     "00 - MOC - SAP IAM & JML Strateji Dizini.md",
-    "08 - Terimler ve Kısaltmalar Sözlüğü (Glossary).md",
-    "07 - Taktiksel Operasyon, Yapılabilirlik ve Sınır Rehberi.md",
-    "06 - Uçtan Uca Kurulum, Entegrasyon ve Doğrulama Rehberi.md",
+    "AI_Core.pdf",
+    "Onaylanmayan 906859.crdownload",
+    "SAP_BTP.pdf",
+    "Onaylanmayan 560165.crdownload",
+    "Identity_Authentication_en.pdf",
+    "Onaylanmayan 852959.crdownload",
     "02 - Teknik Keşif Anketi (Workshop Guide).md",
-    "01 - Kurumsal Strateji, Olgunluk ve ROI.md",
     "03 - Çekirdek Mimari ve JML Yaşam Döngüsü.md",
     "04 - SAP IPS JSON Kod Spesifikasyonu.md",
+    "05 - Güvenlik, Denetim ve Break-Glass.md",
+    "06 - Uçtan Uca Kurulum, Entegrasyon ve Doğrulama Rehberi.md",
+    "01 - Kurumsal Strateji, Olgunluk ve ROI.md",
+    "07 - Taktiksel Operasyon, Yapılabilirlik ve Sınır Rehberi.md",
+    "08 - Terimler ve Kısaltmalar Sözlüğü (Glossary).md",
+    "discovery_and_ips_spec.md",
+    "index.html",
+    "Başlıksız.canvas",
     "Hoş geldiniz.md"
   ]
 }

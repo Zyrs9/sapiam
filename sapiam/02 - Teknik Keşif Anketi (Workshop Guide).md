@@ -100,11 +100,8 @@ Bu belge, paydaş birimlerle (**İK/SuccessFactors**, **IT Altyapı/Dizin Hizmet
 
 [^1]: **IETF RFC 7643:** *System for Cross-domain Identity Management: Core Schema*. [https://datatracker.ietf.org/doc/html/rfc7643](https://datatracker.ietf.org/doc/html/rfc7643)
 [^2]: **SAP Help Portal:** *Employee Central Master Data Guide*. [https://help.sap.com/docs/SAP_SUCCESSFACTORS_EMPLOYEE_CENTRAL](https://help.sap.com/docs/SAP_SUCCESSFACTORS_EMPLOYEE_CENTRAL)
-[^3]: **SAP Help Portal:** *Managing Employment Lifecycle Events in Employee Central*. [https://help.sap.com/docs/SAP_SUCCESSFACTORS_EMPLOYEE_CENTRAL/lifecycle](https://help.sap.com/docs/SAP_SUCCESSFACTORS_EMPLOYEE_CENTRAL/lifecycle)
 [^4]: **NIST SP 800-207:** *Zero Trust Architecture*. [https://doi.org/10.6028/NIST.SP.800-207](https://doi.org/10.6028/NIST.SP.800-207)
-[^5]: **SAP Help Portal:** *Contingent Workforce Management in SuccessFactors*. [https://help.sap.com/docs/SAP_SUCCESSFACTORS_EMPLOYEE_CENTRAL/contingent](https://help.sap.com/docs/SAP_SUCCESSFACTORS_EMPLOYEE_CENTRAL/contingent)
 [^6]: **Microsoft Learn:** *Plan cloud HR application to Microsoft Entra user provisioning*. [https://learn.microsoft.com/en-us/entra/identity/app-provisioning/plan-cloud-hr-provision](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/plan-cloud-hr-provision)
-[^7]: **SAP KBA 2791410:** *Deprecation of Basic Authentication in SAP SuccessFactors*. [https://me.sap.com/notes/2791410](https://me.sap.com/notes/2791410)
 [^8]: **Microsoft Learn:** *Microsoft Graph REST API v1.0 reference*. [https://learn.microsoft.com/en-us/graph/api/overview](https://learn.microsoft.com/en-us/graph/api/overview)
 [^9]: **SAP Help Portal:** *Identity Provisioning - List of Properties & Transformation Operations*. [https://help.sap.com/docs/identity-provisioning/identity-provisioning/list-of-properties](https://help.sap.com/docs/identity-provisioning/identity-provisioning/list-of-properties)
 [^10]: **Microsoft Learn:** *Rules for dynamically populated groups membership in Microsoft Entra ID*. [https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership](https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership)

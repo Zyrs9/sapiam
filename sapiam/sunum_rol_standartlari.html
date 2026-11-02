@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAP S/4HANA ve BTP Rol Standartları ve Yaşam Döngüsü Sunumu</title>
+  <!-- Google Fonts: Poppins (400, 500, 600, 700, 800) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Plotly.js 2.35.2 -->
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    :root {
+      --bg-main: #f0f4f8;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --radius-card: 16px;
+      --shadow-sm: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+      --shadow-hover: 0 16px 32px -4px rgba(15, 23, 42, 0.08), 0 6px 12px -3px rgba(15, 23, 42, 0.04);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      
+      /* Renk Paleti */
+      --color-blue: #2563eb;
+      --bg-blue-light: #eff6ff;
+      --border-blue: #bfdbfe;
+
+      --color-cyan: #0891b2;
+      --bg-cyan-light: #ecfeff;
+      --border-cyan: #a5f3fc;
+
+      --color-green: #059669;
+      --bg-green-light: #ecfdf5;
+      --border-green: #a7f3d0;
+
+      --color-amber: #d97706;
+      --bg-amber-light: #fffbeb;
+      --border-amber: #fde68a;
+
+      --color-violet: #7c3aed;
+      --bg-violet-light: #f5f3ff;
+      --border-violet: #ddd6fe;
+
+      --color-rose: #e11d48;
+      --bg-rose-light: #fff1f2;
+      --border-rose: #fecdd3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Üst Navigasyon Çubuğu */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      z-index: 50;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .badge-persona {
+      background: var(--bg-blue-light);
+      color: var(--color-blue);
+      border: 1px solid var(--border-blue);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slide-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: 8px;
+    }
+
+    .slide-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .slide-dot:hover {
+      border-color: var(--color-blue);
+      color: var(--color-blue);
+    }
+
+    .slide-dot.active {
+      background: var(--color-blue);
+      color: #ffffff;
+      border-color: var(--color-blue);
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-main);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--color-blue);
+      color: #ffffff;
+      border-color: var(--color-blue);
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+    }
+
+    .btn-toggle-active {
+      background: var(--bg-violet-light);
+      color: var(--color-violet);
+      border-color: var(--border-violet);
+    }
+
+    /* Ana Sahne Alanı */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .slide-container {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      display: none;
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide-container.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Slayt Başlık Kartı */
+    .slide-header-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      padding: 18px 24px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .slide-header-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .slide-index-pill {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .slide-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .slide-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Slayt İçerik Izgarası */
+    .slide-body-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .slide-body-grid.full-width {
+      grid-template-columns: 1fr;
+    }
+
+    /* Kart Yapıları */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      padding: 22px 24px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: -8px;
+      margin-bottom: 14px;
+    }
+
+    /* Liste Öğeleri ve Vurgular */
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bullet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .bullet-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .bullet-content strong {
+      font-weight: 700;
+      display: block;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .bullet-content p {
+      color: var(--text-muted);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    /* Kod ve Parametre Blokları */
+    .code-badge {
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .syntax-box {
+      background: #0f172a;
+      color: #38bdf8;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 12px;
+      margin-bottom: 14px;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+
+    /* Tablo Tasarımı */
+    .table-custom {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    .table-custom th {
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .table-custom td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .table-custom tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Renk Temaları */
+    .theme-blue .slide-index-pill { background: var(--bg-blue-light); color: var(--color-blue); border: 1px solid var(--border-blue); }
+    .theme-blue .card-title { color: var(--color-blue); }
+    .theme-blue .bullet-icon { background: var(--bg-blue-light); color: var(--color-blue); }
+    .theme-blue .code-badge { background: var(--bg-blue-light); color: var(--color-blue); border: 1px solid var(--border-blue); }
+
+    .theme-cyan .slide-index-pill { background: var(--bg-cyan-light); color: var(--color-cyan); border: 1px solid var(--border-cyan); }
+    .theme-cyan .card-title { color: var(--color-cyan); }
+    .theme-cyan .bullet-icon { background: var(--bg-cyan-light); color: var(--color-cyan); }
+    .theme-cyan .code-badge { background: var(--bg-cyan-light); color: var(--color-cyan); border: 1px solid var(--border-cyan); }
+
+    .theme-green .slide-index-pill { background: var(--bg-green-light); color: var(--color-green); border: 1px solid var(--border-green); }
+    .theme-green .card-title { color: var(--color-green); }
+    .theme-green .bullet-icon { background: var(--bg-green-light); color: var(--color-green); }
+    .theme-green .code-badge { background: var(--bg-green-light); color: var(--color-green); border: 1px solid var(--border-green); }
+
+    .theme-amber .slide-index-pill { background: var(--bg-amber-light); color: var(--color-amber); border: 1px solid var(--border-amber); }
+    .theme-amber .card-title { color: var(--color-amber); }
+    .theme-amber .bullet-icon { background: var(--bg-amber-light); color: var(--color-amber); }
+    .theme-amber .code-badge { background: var(--bg-amber-light); color: var(--color-amber); border: 1px solid var(--border-amber); }
+
+    .theme-violet .slide-index-pill { background: var(--bg-violet-light); color: var(--color-violet); border: 1px solid var(--border-violet); }
+    .theme-violet .card-title { color: var(--color-violet); }
+    .theme-violet .bullet-icon { background: var(--bg-violet-light); color: var(--color-violet); }
+    .theme-violet .code-badge { background: var(--bg-violet-light); color: var(--color-violet); border: 1px solid var(--border-violet); }
+
+    .theme-rose .slide-index-pill { background: var(--bg-rose-light); color: var(--color-rose); border: 1px solid var(--border-rose); }
+    .theme-rose .card-title { color: var(--color-rose); }
+    .theme-rose .bullet-icon { background: var(--bg-rose-light); color: var(--color-rose); }
+    .theme-rose .code-badge { background: var(--bg-rose-light); color: var(--color-rose); border: 1px solid var(--border-rose); }
+
+    /* Karşılaştırma Kutuları */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .compare-box {
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .compare-box.active-flow {
+      background: var(--bg-blue-light);
+      border-color: var(--border-blue);
+    }
+
+    .compare-box.manual-flow {
+      background: var(--bg-amber-light);
+      border-color: var(--border-amber);
+    }
+
+    .compare-box.safe-flow {
+      background: var(--bg-green-light);
+      border-color: var(--border-green);
+    }
+
+    .compare-box.danger-flow {
+      background: var(--bg-rose-light);
+      border-color: var(--border-rose);
+    }
+
+    .compare-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .compare-tag.tag-blue { background: #dbeafe; color: var(--color-blue); }
+    .compare-tag.tag-amber { background: #fef3c7; color: var(--color-amber); }
+    .compare-tag.tag-green { background: #dcfce7; color: var(--color-green); }
+    .compare-tag.tag-rose { background: #ffe4e6; color: var(--color-rose); }
+
+    /* Plotly Konteyneri */
+    .chart-card {
+      min-height: 400px;
+      position: relative;
+    }
+
+    .chart-container {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+    }
+
+    /* Konuşmacı Notları Paneli (Speaker Notes Drawer) */
+    .speaker-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-top: 2px solid var(--color-violet);
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+      padding: 18px 32px;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 100;
+      max-height: 40vh;
+      overflow-y: auto;
+    }
+
+    .speaker-drawer.open {
+      transform: translateY(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .drawer-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-violet);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drawer-body {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #1e293b;
+      background: var(--bg-violet-light);
+      border: 1px solid var(--border-violet);
+      padding: 14px 18px;
+      border-radius: 12px;
+    }
+
+    /* Alt Çubuk (Footer / Keyboard hints) */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border-color);
+      padding: 10px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      z-index: 50;
+    }
+
+    .kbd-hints {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    kbd {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-family: inherit;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    .icon-svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Üst Başlık Çubuğu -->
+  <header>
+    <div class="brand-block">
+      <span class="badge-persona">ROLLER & İLERİ SEVİYE IAM</span>
+      <div>
+        <div class="brand-title">SAP S/4HANA & BTP Rol Standartları ve Yaşam Döngüsü</div>
+        <div class="brand-subtitle">PFCG Sözdizimi, SCIM Sınırları, SSoT İlkesi, CDHDR/CDPOS Denetimi ve Rol Emekliliği</div>
+      </div>
+    </div>
+
+    <div class="nav-controls">
+      <div class="slide-dots" id="slideDots">
+        <button class="slide-dot active" onclick="goToSlide(0)">1</button>
+        <button class="slide-dot" onclick="goToSlide(1)">2</button>
+        <button class="slide-dot" onclick="goToSlide(2)">3</button>
+        <button class="slide-dot" onclick="goToSlide(3)">4</button>
+        <button class="slide-dot" onclick="goToSlide(4)">5</button>
+        <button class="slide-dot" onclick="goToSlide(5)">6</button>
+      </div>
+
+      <button class="btn" onclick="prevSlide()" title="Önceki Slayt (Sol Ok)">
+        <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Önceki
+      </button>
+      <button class="btn btn-primary" onclick="nextSlide()" title="Sonraki Slayt (Sağ Ok veya Space)">
+        Sonraki
+        <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <button class="btn" id="notesToggleBtn" onclick="toggleSpeakerNotes()" title="Konuşmacı Metnini Aç / Kapat (N Tuşu)">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Notlar
+      </button>
+    </div>
+  </header>
+
+  <!-- Ana Sahne Alanı -->
+  <main>
+
+    <!-- SLAYT 1: Rol İsimlendirme Standartları -->
+    <section class="slide-container active theme-blue" id="slide-0">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 1 / 6 • Naming Conventions & Sözdizimi</span>
+          <h1 class="slide-title">SAP PFCG ve Bulut Rol İsimlendirme Standartları</h1>
+          <div class="slide-subtitle">30 Karakter AGR_NAME Kısıtı, Z/Y Namespace ve Fiori / BTP / AD Eşleme Kuralları</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">Standartlaştırılmış PFCG Sözdizimi (Syntax)</div>
+          <div class="card-subtitle">SAP veritabanında teknik rol ismi azami 30 karakterdir (Tablo: AGR_DEFINE / AGR_NAME)</div>
+
+          <div class="syntax-box">
+            Z:&lt;KAPSAM&gt;_&lt;MODÜL&gt;_&lt;TİP&gt;_&lt;İŞLEV&gt;_&lt;ORGANİZASYON&gt;
+            <div style="color: #94a3b8; font-size: 11px; margin-top: 4px;">
+              Örn: Z:S4_MM_D_BUYER_1000 (20 karakter &lt; 30 karakter azami sınır)
+            </div>
+          </div>
+
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Z: / Y: Namespace ve Modüler Dağılım</strong>
+                <p>Müşteri özel alanı <code>Z:</code> (2 ch), Sistem kapsamı <code>S4/BT/BW</code> (2 ch), Modül kodu <code>MM/FI/CO/SD/BC</code> (2 ch) ve Rol Tipi <code>S/D/C/M</code> (1 ch) olarak sabitlenir.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Fiori Standartları (Katalog vs. Spaces & Pages)</strong>
+                <p>İş Kataloğu için <code>Z:BC_&lt;MODÜL&gt;_&lt;İŞLEV&gt;</code>, Launchpad sayfa düzeni için <code>Z:BR_&lt;MODÜL&gt;_&lt;UNVAN&gt;</code> ayrılarak görsel ve yetki katmanı bağımsız yönetilir.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>BTP Role Collection & AD Güvenlik Grubu Eşlemesi</strong>
+                <p>BTP Subaccount'ta <code>BTP_SAC_BI_ANALYST</code>; Entra ID tarafında ise <code>SG_SAP_S4P_MM_BUYER_1000</code> formatıyla hedef sistem ve yetki birebir haritalanır.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">PFCG 30-Karakter Alan Bütçesi ve Ayrılan Karakterler</div>
+          <div class="card-subtitle">Sözdizimindeki her alanın azami karakter kotası ve doluluk oranı</div>
+          <div id="chart-slide-1" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLAYT 2: Varsayılan Atanma Değerleri ve Kısıtlar -->
+    <section class="slide-container theme-violet" id="slide-1">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 2 / 6 • Default Values & SCIM Sınırı</span>
+          <h1 class="slide-title">Varsayılan Atanma Değerleri ve Parametre Sınırları</h1>
+          <div class="slide-subtitle">SU01 / AGR_USERS 31.12.9999 Kuralı, SU3 Parametre Kısıtı ve IPS defaultValue</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">Varsayılan Değer Mekanizmaları ve Güvenlik Sınırları</div>
+          <div class="card-subtitle">Kullanıcıya rol bağlanırken devreye giren sistem değişkenleri ve SCIM mimari kısıtı</div>
+
+          <div class="compare-grid">
+            <div class="compare-box active-flow">
+              <span class="compare-tag tag-blue">AGR_USERS Tablo Standartları</span>
+              <strong style="font-size: 13px; color: var(--color-blue);">Geçerlilik ve Tip Parametreleri</strong>
+              <p style="font-size: 12px; color: var(--text-muted);">
+                <code>FROM_DAT</code> = <code>SY-DATUM</code> (Atama günü), <code>TO_DAT</code> = <code>31.12.9999</code> (Varsayılan sonsuz geçerlilik). Kullanıcı tipi insan kaynağı için <code>USTYP='A'</code> (Dialog), teknik tüneller için <code>USTYP='B'</code> (System) üretilir.
+              </p>
+            </div>
+
+            <div class="compare-box manual-flow">
+              <span class="compare-tag tag-amber">Kritik Mimari Kısıt (SU3)</span>
+              <strong style="font-size: 13px; color: var(--color-amber);">SCIM SU3 Parametresi Yazamaz</strong>
+              <p style="font-size: 12px; color: var(--text-muted);">
+                IETF RFC 7643 standardı kullanıcının SU3 parametrelerini (BUK, WRK, EKO) desteklemez. Şirket kodu kısıtlaması kullanıcı parametresiyle değil, <strong>Türetilmiş Rol (Derived Role)</strong> ile yetki nesnesine gömülerek çözülür.
+              </p>
+            </div>
+          </div>
+
+          <ul class="bullet-list" style="margin-top: 16px;">
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>IPS Transformation defaultValue Güvencesi</strong>
+                <p>SuccessFactors veya Entra ID'den boş gelen alanlarda provizyonun çökmesini önlemek için <code>defaultValue: "GENEL_MERKEZ"</code> veya <code>timezone: "Europe/Istanbul"</code> deklaratif olarak işletilir.</p>
+              </div>
+            </li>
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>BTP Default Role Collections (Birthright)</strong>
+                <p>Kullanıcı Entra ID ile SAML2/OIDC üzerinden BTP'ye ilk girdiğinde AD grubu olmasa dahi <code>Subaccount User</code> ve <code>Launchpad_Viewer</code> rollerini otomatik alır.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">Veri Kısıtı Yöntemleri: SU3 Parametresi vs. Türetilmiş Rol</div>
+          <div class="card-subtitle">SCIM uyumu, denetim izi ve güvenlik güvencesi açısından 5 kriterli mimari kıyaslama</div>
+          <div id="chart-slide-2" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLAYT 3: Çift Yönlü Aktarım ve Mock Test Mimarisi -->
+    <section class="slide-container theme-green" id="slide-2">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 3 / 6 • Senkronizasyon & Mock Doğrulama</span>
+          <h1 class="slide-title">Çift Yönlü Aktarım Riskleri ve Mock Test Mimarisi</h1>
+          <div class="slide-subtitle">Döngüsel Çakışma (Circular Loop) Önleme, Tekil Güven Kaynağı (SSoT) ve SCIM 2.0 Payloads</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">Tekil Güven Kaynağı (SSoT) ve Simülasyon Koruması</div>
+          <div class="card-subtitle">İleri yönlü kullanıcı provizyonu ile geri yönlü envanter keşfinin birbirinden ayrılması</div>
+
+          <div class="compare-grid">
+            <div class="compare-box safe-flow">
+              <span class="compare-tag tag-green">İleri Yön (Forward Provisioning)</span>
+              <strong style="font-size: 13px; color: var(--color-green);">Entra ID &rarr; IPS &rarr; S/4HANA & BTP</strong>
+              <p style="font-size: 12px; color: var(--text-muted);">
+                Kullanıcı kimliği ve grup üyeliklerinin <strong>TEKİL</strong> kaynağı Entra ID'dir. IPS motoru SCIM 2.0 üzerinden kullanıcıyı açar ve rolleri atar.
+              </p>
+            </div>
+
+            <div class="compare-box danger-flow">
+              <span class="compare-tag tag-rose">Geri Yön (Reverse Discovery)</span>
+              <strong style="font-size: 13px; color: var(--color-rose);">S/4HANA & BTP &rarr; IPS &rarr; IAS</strong>
+              <p style="font-size: 12px; color: var(--text-muted);">
+                Geri yönde aktarım <strong>yalnızca rol envanteri okuma</strong> ile sınırlandırılır. S/4HANA'dan geriye kullanıcı yazılmaz; aksi halde sonsuz döngü (Circular Loop) doğar.
+              </p>
+            </div>
+          </div>
+
+          <table class="table-custom" style="margin-top: 14px;">
+            <thead>
+              <tr>
+                <th>Mock Kullanıcı</th>
+                <th>Test Edilen Senaryo</th>
+                <th>Beklenen Sistem Davranışı</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>TEST_MOCK_USER_01</code></td>
+                <td>Standart Day-1 Giriş</td>
+                <td>S/4HANA'da hesap açılır; <code>Z:S4_MM_D_BUYER_1000</code> ve ESS rolü bağlanır.</td>
+              </tr>
+              <tr>
+                <td><code>TEST_MOCK_USER_02</code></td>
+                <td>Görev Değişimi (Mover)</td>
+                <td>MM grubu çıkarılıp FI grubu eklenir. Eski rol silinir, yeni rol atanır; SU01 korunur.</td>
+              </tr>
+              <tr>
+                <td><code>TEST_MOCK_USER_03</code></td>
+                <td>Acil Durum (Firefighter)</td>
+                <td>Basis doğrudan <code>Z_FF_BASIS</code> atar. IPS çalıştığında <code>abap.role.filter</code> ile rol silinmez.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">Tekil Güven Kaynağı (SSoT) Dağıtım Akışı</div>
+          <div class="card-subtitle">Entra ID Grupları &rarr; SAP IPS Motoru &rarr; S/4HANA ve BTP Rol Koleksiyonları (Sankey)</div>
+          <div id="chart-slide-3" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLAYT 4: Kayıt Defteri ve Denetim İzi -->
+    <section class="slide-container theme-cyan" id="slide-3">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 4 / 6 • Denetim İzi & Değişiklik Belgeleri</span>
+          <h1 class="slide-title">Yetki Değişim Kayıt Defteri ve Noktasal Zamanlı Denetim</h1>
+          <div class="slide-subtitle">CDHDR, CDPOS, USH02/04 Tabloları, SUIM Raporları ve Point-in-Time Audit Uyumu</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">SAP Değişiklik Belgeleri (Change Documents) Mimarisi</div>
+          <div class="card-subtitle">SOX 404, BDDK ve ISO/IEC 27001 gereği her yetki hareketinin kalıcı delil defteri</div>
+
+          <div class="syntax-box" style="color: #67e8f9;">
+            CDHDR (Başlık) &rarr; USERNAME: IPS_PROV_SERVICE | UDATE: 2026-10-27 | CHANGENR: 0001248590<br>
+            CDPOS (Pozisyon) &rarr; TABNAME: AGR_USERS | FNAME: AGR_NAME | CHNGIND: I (Insert) / D (Delete)
+          </div>
+
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Tarihsel Tablolar: USH02, USH04 ve AGR_USERS</strong>
+                <p>Kullanıcı kilit geçmişi <code>USH02</code>'de; atanan profillerin tarihsel anlık kopyası <code>USH04</code>'te; rol geçerlilik aralıkları (<code>FROM_DAT</code> / <code>TO_DAT</code>) <code>AGR_USERS</code> tablosunda tutulur.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>SUIM Denetim Raporları: RSUSR100N & RSSCD100_PFCG</strong>
+                <p>Kullanıcı üzerindeki yetki değişimleri <code>RSUSR100N</code> ile; rolün kendi içindeki işlem kodu ve yetki alanı revizyonları <code>RSSCD100_PFCG</code> ile denetçiye sunulur.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>Noktasal Zamanlı Denetim (Point-in-Time Audit)</strong>
+                <p><em>"15 Mart 2026'da Ahmet Bey hangi yetkilere sahipti?"</em> sorusu; İK Pozisyon Geçmişi + Entra ID Denetim Günlüğü + S/4HANA <code>AGR_USERS</code> üçgeninde saniyeler içinde kanıtlanır.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">3 Katmanlı Noktasal Zamanlı Denetim Korelasyon Modeli</div>
+          <div class="card-subtitle">SOX 404 & BDDK uyumlu kanıt doğrulama ve denetçi sorgulama zaman hattı</div>
+          <div id="chart-slide-4" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLAYT 5: Emeklilik Yaşam Döngüsü -->
+    <section class="slide-container theme-amber" id="slide-4">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 5 / 6 • Lifecycle & Deprecation</span>
+          <h1 class="slide-title">Rol ve Unvanın Pasifleştirilmesi ve Emeklilik Yaşam Döngüsü</h1>
+          <div class="slide-subtitle">90 Günlük Karantina, [DEPRECATED] Etiketi, SG_SAP_RETIRED_* ve Yetim Yetki Temizliği</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">Kademeli Rol Emeklilik Prosedürü (4 Aşama)</div>
+          <div class="card-subtitle">Kullanılmayan rollerin doğrudan silinmesi iş sürekliliğini bozar; kademeli tasfiye şarttır</div>
+
+          <div class="compare-grid">
+            <div class="compare-box manual-flow">
+              <span class="compare-tag tag-amber">Pasifleştirme (Deactivation)</span>
+              <strong style="font-size: 13px; color: var(--color-amber);">Geçici Dondurma</strong>
+              <p style="font-size: 12px; color: var(--text-muted);">
+                Yeni personele atanması durdurulur. Mevcut personelin yetkisi korunur veya askıya alınır. Tarih uzatılarak geri dönüşü anında yapılabilir.
+              </p>
+            </div>
+
+            <div class="compare-box danger-flow">
+              <span class="compare-tag tag-rose">Emekli Etme (Retirement)</span>
+              <strong style="font-size: 13px; color: var(--color-rose);">Kalıcı Tasfiye & Karantina</strong>
+              <p style="font-size: 12px; color: var(--text-muted);">
+                90 günlük karantina işletilir. Kullanıcılar yeni rollere göç ettirilir. Süre sonunda rol PFCG ve dizinden kalıcı olarak silinip arşivlenir.
+              </p>
+            </div>
+          </div>
+
+          <ul class="bullet-list" style="margin-top: 14px;">
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>1. Aşama: [DEPRECATED] Etiketi ve Yeni Atamaya Kapatma</strong>
+                <p>PFCG açıklama alanına ibare eklenir; menü dondurulur ve yetki ekibi tarafından yeni personele verilmesi engellenir.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>2. Aşama: Toplu Geçerlilik Bitişi (Mass Role Expiration)</strong>
+                <p><code>PRGN_COMPRESS_TIMES</code> veya PFUD ile aktif kullanıcıların <code>AGR_USERS.TO_DAT</code> değeri <code>SY-DATUM</code> yapılarak gece tampon temizliğiyle yetki kapatılır.</p>
+              </div>
+            </li>
+
+            <li class="bullet-item">
+              <div class="bullet-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              </div>
+              <div class="bullet-content">
+                <strong>3. & 4. Aşama: SG_SAP_RETIRED_* Filtresi & Yetim Temizliği</strong>
+                <p>Entra ID grubu yeniden adlandırılır; IPS filtresine <code>not (displayName startswith 'SG_SAP_RETIRED_')</code> eklenir ve 90 gün sonra kalıcı silme uygulanır.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">Rol ve Unvan Emeklilik Yaşam Döngüsü Zaman Çizelgesi</div>
+          <div class="card-subtitle">Duyuru, toplu geçerlilik kapatma, 90 günlük karantina ve kalıcı arşivleme süreci</div>
+          <div id="chart-slide-5" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLAYT 6: Özet Karar ve Araştırma Matrisi -->
+    <section class="slide-container theme-rose" id="slide-5">
+      <div class="slide-header-card">
+        <div>
+          <span class="slide-index-pill">Slayt 6 / 6 • Karar Matrisi & Standartlar</span>
+          <h1 class="slide-title">Yönetici Karar Matrisi ve Uygulama Standartları</h1>
+          <div class="slide-subtitle">5 Temel Alanın Mimari Kararları, Alınması Gereken Önlemler ve RACI Sorumlulukları</div>
+        </div>
+      </div>
+
+      <div class="slide-body-grid">
+        <div class="card">
+          <div class="card-title">Özet Karar ve Uygulama Matrisi</div>
+          <div class="card-subtitle">Canlıya geçiş öncesinde bağlayıcı standart olarak belirlenen 5 temel teknik ilke</div>
+
+          <table class="table-custom">
+            <thead>
+              <tr>
+                <th>Mimari Konu</th>
+                <th>Temel Teknik Bulgu / İlke</th>
+                <th>Bağlayıcı Standart / Önlem</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Rol İsimlendirmesi</strong></td>
+                <td>Teknik rol ismi azami 30 karakterdir (<code>AGR_NAME</code>).</td>
+                <td><code>Z:&lt;KAPSAM&gt;_&lt;MODÜL&gt;_&lt;TİP&gt;_&lt;İŞLEV&gt;_&lt;ORG&gt;</code> kuralı zorunlu kılınmalıdır.</td>
+              </tr>
+              <tr>
+                <td><strong>Varsayılan Değerler</strong></td>
+                <td>SCIM SU3 parametresi yazamaz; varsayılan bitiş <code>31.12.9999</code>'dur.</td>
+                <td>Veri kısıtı parametreyle değil, <strong>Türetilmiş Rol (Derived Role)</strong> ile çözülmelidir.</td>
+              </tr>
+              <tr>
+                <td><strong>Çift Yönlü Aktarım</strong></td>
+                <td>Karşılıklı kullanıcı yazma sonsuz döngüye (Circular Loop) yol açar.</td>
+                <td>Entra ID tekil güven kaynağı (SSoT) kalmalı; geri yön sadece rol okuma ile sınırlandırılmalıdır.</td>
+              </tr>
+              <tr>
+                <td><strong>Kayıt Defteri & Revizyon</strong></td>
+                <td>Değişiklikler <code>CDHDR/CDPOS</code>; geçmiş <code>USH02/04</code>'tedir.</td>
+                <td>Denetim için <code>RSUSR100N</code> / <code>RSSCD100_PFCG</code> ve IPS logları merkezi SIEM'e akıtılmalıdır.</td>
+              </tr>
+              <tr>
+                <td><strong>Emeklilik Yaşam Döngüsü</strong></td>
+                <td>Roller aniden silinirse iş süreçleri aksar ve yetim yetki doğar.</td>
+                <td>90 günlük karantina süresi, <code>[DEPRECATED]</code> etiketi ve <code>SG_SAP_RETIRED_*</code> işletilmelidir.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="compare-grid" style="margin-top: 14px;">
+            <div class="compare-box active-flow">
+              <span class="compare-tag tag-blue">RACI Sorumluluk Dağılımı</span>
+              <p style="font-size: 11.5px; color: var(--text-muted);">
+                <strong>İK:</strong> Personel verisi &middot; <strong>IT / Entra ID:</strong> SG_SAP_* grupları &middot; <strong>Basis:</strong> Derived Roller &middot; <strong>CISO:</strong> Denetim & Karantina Onayı
+              </p>
+            </div>
+            <div class="compare-box safe-flow">
+              <span class="compare-tag tag-green">Bağlayıcı Sonuç</span>
+              <p style="font-size: 11.5px; color: var(--text-muted);">
+                Sıfır manuel bilet, tam SOX 404 denetim izi, yetim hesap riski sıfır, iş sürekliliği garantisi.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-title">5 Boyutlu IAM Rol & Yaşam Döngüsü Olgunluk Skoru</div>
+          <div class="card-subtitle">Geleneksel Dağınık Model vs. Standartlaştırılmış Hedef Model Kıyaslaması (Radar)</div>
+          <div id="chart-slide-6" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Konusmaci Notlari Paneli (Speaker Notes Drawer) -->
+  <div class="speaker-drawer" id="speakerDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span id="drawerSlideTitle">Konuşmacı Metni (Speaker Notes)</span>
+      </div>
+      <button class="btn" style="padding: 4px 10px; font-size: 11px;" onclick="toggleSpeakerNotes()">Kapat</button>
+    </div>
+    <div class="drawer-body" id="drawerContent">
+      <!-- Dinamik olarak JS ile dolacak -->
+    </div>
+  </div>
+
+  <!-- Alt Bilgi Çubuğu (Footer) -->
+  <footer>
+    <div class="kbd-hints">
+      <span>Klavye Kısayolları:</span>
+      <span><kbd>←</kbd> <kbd>→</kbd> Slayt Geçişi</span>
+      <span><kbd>Space</kbd> İleri</span>
+      <span><kbd>N</kbd> Notlar Paneli</span>
+      <span><kbd>F</kbd> Tam Ekran</span>
+      <span><kbd>1</kbd>-<kbd>6</kbd> Hızlı Slayt</span>
+    </div>
+    <div>
+      <span id="slideCounter">Slayt 1 / 6</span>
+    </div>
+  </footer>
+
+  <script>
+    // Konuşmacı Metinleri (Speaker Notes Verbatim)
+    const speakerNotes = [
+      // Slayt 1
+      `"Değerli çalışma arkadaşlarım, merhabalar. SAP S/4HANA, BTP ve Microsoft Entra ID entegrasyonunda rol yönetişimini ve yaşam döngüsünü sürdürülebilir kılmak için hazırladığımız rol standartları çalışmamıza hoş geldiniz.
+
+İlk ve en bağlayıcı teknik kuralımızla başlayalım: SAP veritabanında teknik rol adı olan AGR_NAME alanı azami 30 karakterle sınırlandırılmıştır. Bu bir tercih değil, SAP veri sözlüğünün fiziksel sınırıdır. Eğer standart bir isimlendirme disiplini kurmazsak, merkezi IAM veya IPS otomasyonu yürütülemez hale gelir.
+
+Bu kısıtı aşmak ve her rolün teknik adından ne işe yaradığını bir bakışta anlayabilmek için 6 bloklu standart bir sözdizimi geliştirdik: Müşteri özelleştirme alanı olarak 'Z:', sistem kapsamı olarak 'S4', modül kodu olarak 'MM/FI/CO', rol türü olarak tekil mi yoksa türetilmiş mi olduğunu gösteren 'S/D/C/M' bayrağı, fonksiyonel görev tanımı ve son olarak organizasyonel kısıt kodu. Örneğin 'Z:S4_MM_D_BUYER_1000' ismi yalnızca 20 karakter tutar ve azami sınırın oldukça altında kalır.
+
+Aynı standardı Fiori tarafında İş Katalogları için 'Z:BC_', Sayfa düzeni için 'Z:BR_'; BTP tarafında 'BTP_' rol koleksiyonları ve Entra ID tarafında 'SG_SAP_' güvenlik grupları olarak genişletiyoruz. Böylece kurumsal dizindeki her güvenlik grubu, SAP ve BTP'deki karşılığıyla birebir konuşur."`,
+
+      // Slayt 2
+      `"İkinci slaytımızda, kullanıcıya rol atanırken sistemin arka planda işlettiği varsayılan değerleri ve sahada en çok yanlış anlaşılan 'SU3 parametreleri' konusunu ele alıyoruz.
+
+Kullanıcıya PFCG rolü atandığında AGR_USERS tablosunda varsayılan geçerlilik başlangıcı günün tarihi, bitiş tarihi ise sonsuz geçerlilik anlamına gelen 31.12.9999 olarak kaydedilir. Kullanıcı tipi insan kaynağımız için 'A' yani Dialog atanırken, BTP servisleri için 'B' yani System atanır.
+
+Burada hayati bir mimari kısıtımız var: Sıkça 'IPS motoru kullanıcının şirket kodunu veya tesisini SU3 parametresi olarak SU01'e yazamaz mı?' sorusu soruluyor. Cevap nettir: IETF SCIM 2.0 çekirdek şeması SAP'nin kullanıcı bazlı SU3 parametrelerini desteklemez. Dahası, SU3 parametreleri yalnızca GUI ekranında varsayılan öneri getirir; arkadaki AUTHORITY-CHECK kontrollerini kilitlemez!
+
+Bu nedenle mimari standardımız şudur: Veri kısıtları kullanıcı parametresiyle değil, doğrudan türetilmiş roller (Derived Roles) üzerinden garanti altına alınmalıdır. IPS ise boş gelebilecek departman veya dil alanlarında defaultValue mekanizmasını çalıştırarak provizyon akışının kesintiye uğramasını deklaratif olarak engeller."`,
+
+      // Slayt 3
+      `"Üçüncü başlığımız, çift yönlü senkronizasyonun riskleri ve güvenli mock test mimarisidir.
+
+Projelerde sıkça yapılan en büyük mimari hata, hem Entra ID'den S/4HANA'ya kullanıcı yazıp, hem de S/4HANA'daki yerel kullanıcı değişikliklerini geriye doğru Entra ID'ye yazmaya çalışmaktır. Bu karşılıklı yazma döngüsü 'Circular Sync Loop' adını verdiğimiz sonsuz güncelleme kilitlenmesine yol açar.
+
+Bu riski bertaraf etmek için temel kuralımız: 'Tekil Güven Kaynağı' yani Single Source of Truth prensibidir. Kullanıcı kimliğinin ve rol atamalarının tekil kaynağı her zaman Entra ID ve SuccessFactors kalmalıdır. Geri yönde aktarım yapılacaksa bu yalnızca S/4HANA'daki teknik rol envanterini kataloglamak amacıyla read-only olarak yapılmalıdır.
+
+Ayrıca canlı ortamı riske atmamak için 3 farklı mock kullanıcı profiliyle QA ortamında testlerimizi tasarladık: Standart işe giriş için MOCK_01, görev değişimi için MOCK_02 ve Basis acil durum yetkilerinin IPS tarafından silinmediğini kanıtlayan MOCK_03 senaryosu. Böylece acil durum (Firefighter) rollerimizin otomasyonda asla kaybolmayacağını önceden garanti ediyoruz."`,
+
+      // Slayt 4
+      `"Dördüncü slaytımız denetim ve uyumluluk açısından en kritik konumuz olan Yetki Değişim Kayıt Defteri ve Noktasal Zamanlı Denetimdir.
+
+SOX 404, BDDK ve ISO 27001 denetçilerinin masaya getirdiği klasik soru şudur: 'Ahmet Bey 15 Mart 2026 tarihinde hangi SAP yetkilerine sahipti ve bu yetki hangi unvan gerekçesiyle verilmişti?'
+
+Bu soruya yanıt verebilmek için SAP'nin CDHDR ve CDPOS değişiklik belgelerini, USH02 kilit geçmişini ve USH04 profil tarihçesini inceliyoruz. S/4HANA'da SU01 veya SCIM API ile yapılan her rol ekleme 'I' (Insert), her silme ise 'D' (Delete) olarak değişikliği yapan kullanıcı ve zaman damgasıyla CDPOS tablosuna kazınır.
+
+Bunu standart SUIM raporlarımız olan RSUSR100N ve RSSCD100_PFCG ile raporlayabiliyoruz. 3 katmanlı denetim modelimizde; İK'daki pozisyon geçmişi, Entra ID denetim günlüğü ve S/4HANA AGR_USERS tablosu birbiriyle eşleştirilerek geriye dönük istenen herhangi bir tarihteki yetki matrisi eksiksiz olarak kanıtlanabilmektedir."`,
+
+      // Slayt 5
+      `"Beşinci slaytımız, yetki yönetiminde en çok ihmal edilen ancak güvenlik açıklarının yüzde 40'ına neden olan 'Rol ve Unvan Emekliliği' yaşam döngüsüdür.
+
+Kurumumuzda bir unvan değiştiğinde veya eski bir SAP süreci kaldırıldığında roller alelacele silinirse yetim hesaplar doğar ve iş sürekliliği çöker. Bu nedenle 'Pasifleştirme' ile 'Emekli Etme' kavramlarını birbirinden ayırdık.
+
+4 aşamalı emeklilik prosedürümüz şöyledir: İlk olarak rol açıklamasına [DEPRECATED] ibaresi eklenir ve yeni atamaya kapatılır. İkinci aşamada, PRGN_COMPRESS_TIMES veya PFUD raporuyla aktif kullanıcıların AGR_USERS bitiş tarihi bugünün tarihine çekilir. Üçüncü aşamada, ilgili Entra ID grubu 'SG_SAP_RETIRED_' olarak yeniden adlandırılır ve IPS filtresiyle kapsam dışına alınır.
+
+En kritik kuralımız ise 4. aşamadaki 90 günlük karantina dönemidir. Rol sistemden hemen silinmez; 90 gün boyunca pasif halde bekletilir. Beklenmeyen bir operasyonel kriz yaşanırsa tarih uzatılarak hızlı geri dönüş sağlanır. Süre dolduğunda ise rol PFCG'den kalıcı olarak silinip arşive kaldırılır."`,
+
+      // Slayt 6
+      `"Son slaytımız, çalışmamızın yönetim özetini ve canlıya geçiş bağlayıcı karar matrisini içeriyor.
+
+Beş temel teknik bulgumuz ve aldığımız bağlayıcı kararlar şunlardır:
+1. Rol İsimlendirmesinde 30 karakter sınırına uyulacak ve Z:<KAPSAM>_<MODÜL>_<TİP> standardı işletilecek.
+2. Veri kısıtları SCIM'in yazamadığı SU3 parametresiyle değil, Türetilmiş Roller ile çözülecek.
+3. Çift yönlü senkronizasyonda döngüsel çakışmaları önlemek için Entra ID tekil güven kaynağı (SSoT) kalacak.
+4. Tüm rol hareketleri CDHDR/CDPOS ve SUIM RSUSR100N üzerinden kayıt altına alınacak ve SIEM'e aktarılacak.
+5. Emekli edilen roller için 90 günlük karantina ve SG_SAP_RETIRED_* filtresi tavizsiz uygulanacak.
+
+RACI matrisimize göre; İK çalışan hareketlerini yönetecek, IT/Dizin ekibi güvenlik gruplarını açacak, SAP Basis ekibi türetilmiş rolleri ve karantinayı işletecek, CISO ekibi ise denetim izini onaylayacaktır.
+
+Bu kuralları tavizsiz uyguladığımızda sıfır manuel bilet hedefimize ulaşırken, tam SOX 404 denetim uyumunu ve sıfır yetim yetki riskini garanti etmiş olacağız. Katılımınız ve dinlediğiniz için teşekkür ederim."`
+    ];
+
+    let currentSlide = 0;
+    const totalSlides = 6;
+    let speakerNotesOpen = false;
+
+    function updateSlideUI() {
+      // Slayt kaplarını güncelle
+      document.querySelectorAll('.slide-container').forEach((el, idx) => {
+        if (idx === currentSlide) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      });
+
+      // Navigasyon noktalarını güncelle
+      document.querySelectorAll('.slide-dot').forEach((dot, idx) => {
+        if (idx === currentSlide) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+
+      // Alt sayaç güncelle
+      document.getElementById('slideCounter').textContent = `Slayt ${currentSlide + 1} / ${totalSlides}`;
+
+      // Konuşmacı notlarını güncelle
+      updateSpeakerNotes();
+
+      // İlgili slaytın grafiğini çiz
+      renderChart(currentSlide);
+    }
+
+    function goToSlide(n) {
+      if (n >= 0 && n < totalSlides) {
+        currentSlide = n;
+        updateSlideUI();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlideUI();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlideUI();
+      }
+    }
+
+    function toggleSpeakerNotes() {
+      speakerNotesOpen = !speakerNotesOpen;
+      const drawer = document.getElementById('speakerDrawer');
+      const btn = document.getElementById('notesToggleBtn');
+      if (speakerNotesOpen) {
+        drawer.classList.add('open');
+        btn.classList.add('btn-toggle-active');
+      } else {
+        drawer.classList.remove('open');
+        btn.classList.remove('btn-toggle-active');
+      }
+    }
+
+    function updateSpeakerNotes() {
+      const titleEl = document.getElementById('drawerSlideTitle');
+      const contentEl = document.getElementById('drawerContent');
+      titleEl.textContent = `Slayt ${currentSlide + 1} • Konuşmacı Metni (Verbatim Script)`;
+      contentEl.innerHTML = speakerNotes[currentSlide]
+        .replace(/\n\n/g, '</p><p style="margin-top: 10px;">')
+        .replace(/\n/g, '<br>');
+    }
+
+    // Klavye Kısayolları Dinleyicisi
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'n' || e.key === 'N') {
+        toggleSpeakerNotes();
+      } else if (e.key >= '1' && e.key <= '6') {
+        goToSlide(parseInt(e.key) - 1);
+      } else if (e.key === 'f' || e.key === 'F') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      } else if (e.key === 'Escape') {
+        if (speakerNotesOpen) {
+          toggleSpeakerNotes();
+        }
+      }
+    });
+
+    // Plotly Grafik Fonksiyonları
+    function renderChart(slideIndex) {
+      setTimeout(() => {
+        switch(slideIndex) {
+          case 0: renderChartSlide1(); break;
+          case 1: renderChartSlide2(); break;
+          case 2: renderChartSlide3(); break;
+          case 3: renderChartSlide4(); break;
+          case 4: renderChartSlide5(); break;
+          case 5: renderChartSlide6(); break;
+        }
+      }, 50);
+    }
+
+    // GRAFİK 1: PFCG 30-Karakter Bütçesi
+    function renderChartSlide1() {
+      const targetDiv = document.getElementById('chart-slide-1');
+      if (!targetDiv) return;
+
+      const segments = [
+        { name: 'Namespace (Z:)', ch: 2, color: '#1e293b' },
+        { name: 'Sistem (S4)', ch: 2, color: '#2563eb' },
+        { name: 'Modül (MM)', ch: 2, color: '#0891b2' },
+        { name: 'Rol Tipi (D)', ch: 1, color: '#7c3aed' },
+        { name: 'İşlev/Unvan', ch: 13, color: '#059669' },
+        { name: 'Org Kısıtı', ch: 6, color: '#d97706' },
+        { name: 'Ayraçlar (_)', ch: 4, color: '#94a3b8' }
+      ];
+
+      const data = segments.map(s => ({
+        type: 'bar',
+        orientation: 'h',
+        y: ['Karakter Bütçesi'],
+        x: [s.ch],
+        name: `${s.name} (${s.ch} ch)`,
+        text: [`${s.name} (${s.ch})`],
+        textposition: 'inside',
+        insidetextanchor: 'middle',
+        marker: { color: s.color },
+        hoverinfo: 'name+x'
+      }));
+
+      const layout = {
+        barmode: 'stack',
+        font: { family: 'Poppins, sans-serif', size: 10, color: '#334155' },
+        margin: { l: 20, r: 20, t: 30, b: 60 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        xaxis: {
+          title: 'Toplam Karakter Sayısı (Azami SAP Limiti: 30)',
+          range: [0, 32],
+          dtick: 5,
+          gridcolor: '#e2e8f0'
+        },
+        yaxis: { showticklabels: false },
+        legend: { orientation: 'h', x: 0, y: -0.25 },
+        annotations: [
+          {
+            x: 30,
+            y: 0,
+            xref: 'x',
+            yref: 'y',
+            text: 'Azami Sınır: 30 Karakter',
+            showarrow: true,
+            arrowhead: 2,
+            ax: 0,
+            ay: -45,
+            font: { color: '#e11d48', size: 11, weight: 700 }
+          }
+        ]
+      };
+
+      Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
+    }
+
+    // GRAFİK 2: SU3 Parametresi vs. Türetilmiş Rol
+    function renderChartSlide2() {
+      const targetDiv = document.getElementById('chart-slide-2');
+      if (!targetDiv) return;
+
+      const criteria = [
+        'SCIM 2.0 Otomasyon',
+        'AUTHORITY-CHECK Güvencesi',
+        'SOX / Denetim İzi',
+        'Çoklu Tesis / Şirket Desteği',
+        'Bakım Standartlaşması'
+      ];
+
+      const trace1 = {
+        name: 'Geleneksel SU3 Parametresi',
+        type: 'bar',
+        x: criteria,
+        y: [20, 30, 40, 25, 35],
+        marker: { color: '#f59e0b' },
+        text: ['%20 (SCIM Desteklemez)', '%30 (Güvenlik Açığı)', '%40 (Zayıf İz)', '%25 (Tekil Değer)', '%35 (Elle Giriş)'],
+        textposition: 'auto'
+      };
+
+      const trace2 = {
+        name: 'Türetilmiş Rol (Derived Role)',
+        type: 'bar',
+        x: criteria,
+        y: [100, 100, 95, 90, 95],
+        marker: { color: '#7c3aed' },
+        text: ['%100 (Tam Uyum)', '%100 (Tam Kilit)', '%95 (Tam Denetim)', '%90 (Hiyerarşik)', '%95 (PFCG Şablon)'],
+        textposition: 'auto'
+      };
+
+      const layout = {
+        barmode: 'group',
+        font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
+        margin: { l: 40, r: 20, t: 30, b: 70 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        yaxis: {
+          title: 'Mimari ve Güvenlik Uyumluluk Skoru (%)',
+          range: [0, 115],
+          gridcolor: '#e2e8f0'
+        },
+        xaxis: { tickangle: -15 },
+        legend: { orientation: 'h', x: 0.1, y: 1.15 }
+      };
+
+      Plotly.react(targetDiv, [trace1, trace2], layout, { responsive: true, displayModeBar: false });
+    }
+
+    // GRAFİK 3: SSoT ve Dağıtım Akışı (Sankey)
+    function renderChartSlide3() {
+      const targetDiv = document.getElementById('chart-slide-3');
+      if (!targetDiv) return;
+
+      const labels = [
+        'SG_SAP_MM_BUYER_1000',
+        'SG_SAP_FI_AP_CLERK',
+        'SG_SAP_BTP_SAC_ANALYST',
+        'SG_SAP_ALL_EMPLOYEES',
+        'SAP IPS SCIM Motoru',
+        'Z:S4_MM_D_BUYER_1000',
+        'Z:S4_FI_S_AP_CLERK',
+        'BTP_SAC_BI_ANALYST',
+        'Z:S4_BASIS_S_ESS'
+      ];
+
+      const data = [{
+        type: 'sankey',
+        orientation: 'h',
+        node: {
+          pad: 14,
+          thickness: 18,
+          line: { color: '#cbd5e1', width: 0.5 },
+          label: labels,
+          color: [
+            '#2563eb', '#0891b2', '#7c3aed', '#059669',
+            '#0f172a',
+            '#2563eb', '#0891b2', '#7c3aed', '#059669'
+          ]
+        },
+        link: {
+          source: [0, 1, 2, 3, 4, 4, 4, 4],
+          target: [4, 4, 4, 4, 5, 6, 7, 8],
+          value:  [25, 20, 15, 40, 25, 20, 15, 40],
+          color: [
+            'rgba(37, 99, 235, 0.25)',
+            'rgba(8, 145, 178, 0.25)',
+            'rgba(124, 58, 237, 0.25)',
+            'rgba(5, 150, 105, 0.25)',
+            'rgba(37, 99, 235, 0.35)',
+            'rgba(8, 145, 178, 0.35)',
+            'rgba(124, 58, 237, 0.35)',
+            'rgba(5, 150, 105, 0.35)'
+          ]
+        }
+      }];
+
+      const layout = {
+        font: { family: 'Poppins, sans-serif', size: 10, color: '#334155' },
+        margin: { l: 15, r: 15, t: 20, b: 20 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent'
+      };
+
+      Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
+    }
+
+    // GRAFİK 4: 3 Katmanlı Noktasal Zamanlı Denetim (Point-in-Time)
+    function renderChartSlide4() {
+      const targetDiv = document.getElementById('chart-slide-4');
+      if (!targetDiv) return;
+
+      const layers = [
+        '1. İK Pozisyon Geçmişi (SF)',
+        '2. Entra ID Denetim Günlüğü',
+        '3. S/4HANA AGR_USERS',
+        '4. S/4HANA CDHDR / CDPOS'
+      ];
+
+      const trace1 = {
+        name: 'Olay Anı Doğruluğu',
+        type: 'bar',
+        y: layers,
+        x: [95, 98, 100, 100],
+        orientation: 'h',
+        marker: { color: '#0891b2' },
+        text: ['Pozisyon Kodu', 'Grup Ekleme', 'FROM_DAT/TO_DAT', 'CHNGIND: I/D'],
+        textposition: 'inside'
+      };
+
+      const trace2 = {
+        name: 'SOX 404 Kanıt Gücü',
+        type: 'bar',
+        y: layers,
+        x: [90, 95, 100, 100],
+        orientation: 'h',
+        marker: { color: '#2563eb' },
+        text: ['Organizasyonel', 'Dizin Üyeliği', 'Veritabanı', 'Kalıcı Belge'],
+        textposition: 'inside'
+      };
+
+      const layout = {
+        barmode: 'group',
+        font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
+        margin: { l: 175, r: 20, t: 25, b: 50 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        xaxis: {
+          title: 'Denetçi Güven ve Kanıt İndeksi (%)',
+          range: [0, 115],
+          gridcolor: '#e2e8f0'
+        },
+        yaxis: { autorange: 'reversed' },
+        legend: { orientation: 'h', x: 0, y: 1.15 }
+      };
+
+      Plotly.react(targetDiv, [trace1, trace2], layout, { responsive: true, displayModeBar: false });
+    }
+
+    // GRAFİK 5: Rol Emeklilik Yaşam Döngüsü Zaman Çizelgesi
+    function renderChartSlide5() {
+      const targetDiv = document.getElementById('chart-slide-5');
+      if (!targetDiv) return;
+
+      const stages = [
+        '1. Duyuru & [DEPRECATED]',
+        '2. Toplu Bitiş (TO_DAT=Bugün)',
+        '3. SG_SAP_RETIRED_* Filtresi',
+        '4. 90 Gün Karantina Süresi',
+        '5. Kalıcı Silme & Arşivleme'
+      ];
+
+      const startDays = [0, 1, 7, 14, 104];
+      const durations = [1, 6, 7, 90, 5];
+      const colors = ['#f59e0b', '#d97706', '#ea580c', '#0891b2', '#e11d48'];
+
+      const data = [{
+        type: 'bar',
+        orientation: 'h',
+        y: stages,
+        x: durations,
+        base: startDays,
+        marker: { color: colors },
+        text: ['1 Gün', '6 Gün', '7 Gün', '90 Gün Karantina', '5 Gün'],
+        textposition: 'inside',
+        insidetextanchor: 'middle'
+      }];
+
+      const layout = {
+        font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
+        margin: { l: 170, r: 25, t: 25, b: 50 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        xaxis: {
+          title: 'Emeklilik Süreç Zamanı (Gün Sayısı - Toplam 110 Gün)',
+          dtick: 15,
+          gridcolor: '#e2e8f0',
+          range: [0, 115]
+        },
+        yaxis: { autorange: 'reversed' }
+      };
+
+      Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
+    }
+
+    // GRAFİK 6: 5 Boyutlu IAM ve Rol Olgunluk Radarı
+    function renderChartSlide6() {
+      const targetDiv = document.getElementById('chart-slide-6');
+      if (!targetDiv) return;
+
+      const categories = [
+        'Rol İsimlendirme (30 Karakter)',
+        'Varsayılan Güvenlik (Derived Role)',
+        'Döngü Koruması (SSoT İlkesi)',
+        'Denetim İzlenebilirliği (CDHDR/POS)',
+        'Karantinalı Emeklilik Yönetimi'
+      ];
+
+      const data = [
+        {
+          type: 'scatterpolar',
+          r: [30, 25, 35, 45, 20, 30],
+          theta: [...categories, categories[0]],
+          fill: 'toself',
+          name: 'Geleneksel / Dağınık Durum',
+          line: { color: '#f59e0b', width: 2 },
+          fillcolor: 'rgba(245, 158, 11, 0.2)'
+        },
+        {
+          type: 'scatterpolar',
+          r: [95, 95, 100, 95, 90, 95],
+          theta: [...categories, categories[0]],
+          fill: 'toself',
+          name: 'Standartlaştırılmış SAP IAM',
+          line: { color: '#059669', width: 2.5 },
+          fillcolor: 'rgba(5, 150, 105, 0.3)'
+        }
+      ];
+
+      const layout = {
+        polar: {
+          radialaxis: {
+            visible: true,
+            range: [0, 100],
+            tickfont: { size: 9 },
+            gridcolor: '#e2e8f0'
+          },
+          angularaxis: {
+            tickfont: { size: 9.5, weight: 600 }
+          }
+        },
+        font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
+        margin: { l: 40, r: 40, t: 30, b: 40 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        legend: { orientation: 'h', x: 0.05, y: -0.15 }
+      };
+
+      Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
+    }
+
+    // Sayfa Yüklendiğinde Başlat
+    window.addEventListener('DOMContentLoaded', () => {
+      updateSlideUI();
+    });
+
+    // Pencere boyutu değiştiğinde grafikleri yeniden boyutlandır
+    window.addEventListener('resize', () => {
+      const activeChart = document.querySelector(`.slide-container.active .chart-container`);
+      if (activeChart && activeChart.id) {
+        Plotly.Plots.resize(activeChart);
+      }
+    });
+  </script>
+</body>
+</html>
+

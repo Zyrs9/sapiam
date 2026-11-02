@@ -73,7 +73,7 @@ Obsidian Graph View üzerinde birbirine bağlı olan 8 temel mimari modül aşa�
    *38 Kritik Kısaltma (IAM, SCIM, OIDC, SAML, ABAC, SoD, FUE, CVI vb.) ve 20 Temel Kavramsal Terim (Birthright, JIT, Principal Propagation, Ephemeral Certificates, Continuous Drift, Shadow User vb.) kurumsal referans kılavuzu.*
 
 9. **Rol İsimlendirme, Yaşam Döngüsü ve İleri Seviye IAM:**  
-   $\rightarrow$ [[09 - Rol Standartları, Yaşam Döngüsü ve İleri Seviye IAM Araştırmaları]]  
+   $\rightarrow$ [[09 - Rol Standartları, Yaşam Döngüsü ve İleri Seviye IAM Araştırmaları]] • [[sunum_rol_standartlari.html|İnteraktif Sunum]]  
    *PFCG 30 karakter isimlendirme sözdizimi, SU01 ve IPS varsayılan atanma değerleri, BTP çift yönlü aktarım için mock kullanıcı ve test yükleri, CDHDR/CDPOS ve SUIM revizyon kayıt defteri, rol ve unvan emeklilik (deprecation) yaşam döngüsü.*
 
 ---
