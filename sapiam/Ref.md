@@ -28,3 +28,10 @@ https://learn.microsoft.com/tr-tr/entra/identity/saas-apps/sap-hana-cloud-platfo
 SAP for Microsoft Sentinel
 https://learn.microsoft.com/en-us/azure/sentinel/sap/preparing-sap
 
+How to Effectively Create Roles in SAP?
+https://smartgrc.eu/blog/how-to-effectively-create-roles-in-sap/
+
+[Acing the SAP Roles and Authorization Design Review — What SAP Checks and How to Prepare](https://community.sap.com/t5/technology-blog-posts-by-members/acing-the-sap-roles-and-authorization-design-review-what-sap-checks-and-how/ba-p/14392797)
+
+[Managing Business Role Groups in SAP S/4HANA Cloud Public Edition](https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/managing-business-role-groups-in-sap-s-4hana-cloud-public-edition/ba-p/14091848)
+

@@ -74,7 +74,7 @@ Obsidian Graph View üzerinde birbirine bağlı olan 8 temel mimari modül aşa�
 
 9. **Rol İsimlendirme, Yaşam Döngüsü ve İleri Seviye IAM:**  
    $\rightarrow$ [[09 - Rol Standartları, Yaşam Döngüsü ve İleri Seviye IAM Araştırmaları]] • [[sunum_rol_standartlari.html|İnteraktif Sunum]]  
-   *PFCG 30 karakter isimlendirme sözdizimi, SU01 ve IPS varsayılan atanma değerleri, BTP çift yönlü aktarım için mock kullanıcı ve test yükleri, CDHDR/CDPOS ve SUIM revizyon kayıt defteri, rol ve unvan emeklilik (deprecation) yaşam döngüsü.*
+   *PFCG 30 karakter isimlendirme sözdizimi, Composite rol stratejisi, BTP Connectivity ve Principal Propagation (X.509/CERTRULE), BTP IAM (Platform vs İş Kullanıcısı, Role Collections, XSUAA), SAP AI Core ve Joule IAM yönetişimi, SU01 ve IPS varsayılan atamaları, mock test yükleri, CDHDR/CDPOS ve Sentinel SIEM izleme, rol ve unvan emeklilik (deprecation) yaşam döngüsü.*
 
 ---
 

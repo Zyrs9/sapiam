@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Clean Core Benefits For IT.md",
-                "mode": "source",
+                "file": "SAP101.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Clean Core Benefits For IT"
+              "title": "SAP101"
             }
           },
           {
@@ -50,27 +50,7 @@
             }
           }
         ],
-        "currentTab": 2
-      },
-      {
-        "id": "c9a1b4d0bb0f3737",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "3419812c6a718881",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Clean Core Guiding Principles.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Clean Core Guiding Principles"
-            }
-          }
-        ]
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -237,16 +217,18 @@
       "bases:Yeni taban oluştur": false
     }
   },
-  "active": "3419812c6a718881",
+  "active": "1609a56db8a5279e",
   "lastOpenFiles": [
+    "sap_kurumsal_sistem_mimarisi_ve_bilgisayar_bilimleri_el_kitab.md",
+    "Clean Core Benefits For IT.md",
+    "SAP101.md",
     "Clean Core Benefits For End Users.md",
     "Clean Core Benefits For Organizations.md",
-    "Clean Core Benefits For IT.md",
+    "Clean Core Guiding Principles.md",
     "MCC100_U3L3_001 1.png",
     "MCC100_U3L3_001.png",
     "MCC100_U2L2_001.png",
     "MCC100_U3L3_001 (1).png",
-    "Clean Core Strategies.md",
-    "Clean Core Guiding Principles.md"
+    "Clean Core Strategies.md"
   ]
 }
