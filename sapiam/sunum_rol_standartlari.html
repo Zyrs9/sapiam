@@ -482,7 +482,7 @@
     .compare-tag.tag-green { background: #dcfce7; color: var(--color-green); }
     .compare-tag.tag-rose { background: #ffe4e6; color: var(--color-rose); }
 
-    /* Plotly Konteyneri */
+    /* Plotly ve Yeni İnteraktif Görsel Konteynerleri */
     .chart-card {
       min-height: 400px;
       position: relative;
@@ -492,6 +492,400 @@
       width: 100%;
       height: 100%;
       min-height: 360px;
+    }
+
+    /* 1. SLAYT: İnteraktif Syntax Builder ve Linter */
+    .syntax-builder-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .builder-form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .builder-field {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .builder-field label {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .builder-input, .builder-select {
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      font-size: 11.5px;
+      font-family: inherit;
+      background: #f8fafc;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .builder-input:focus, .builder-select:focus {
+      border-color: var(--color-blue);
+      background: #ffffff;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    }
+
+    .syntax-live-box {
+      background: #0f172a;
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .live-role-display {
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #38bdf8;
+      word-break: break-all;
+      letter-spacing: 0.5px;
+    }
+
+    .char-meter-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .char-bar-track {
+      width: 100%;
+      height: 7px;
+      background: #334155;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 2px;
+    }
+
+    .char-bar-fill {
+      height: 100%;
+      transition: width 0.3s ease, background-color 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .linter-checks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .linter-badge {
+      font-size: 10.5px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .linter-badge.valid {
+      background: #064e3b;
+      color: #a7f3d0;
+    }
+
+    .linter-badge.invalid {
+      background: #7f1d1d;
+      color: #fecaca;
+    }
+
+    .preset-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .preset-btn {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px dashed var(--border-color);
+      background: #ffffff;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .preset-btn:hover {
+      background: var(--bg-blue-light);
+      border-color: var(--color-blue);
+      color: var(--color-blue);
+    }
+
+    /* 2. SLAYT: Runtime Flow Mimarisi */
+    .runtime-flow-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .flow-col {
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .flow-col.danger-col {
+      background: #fff5f5;
+      border-color: #fecdd3;
+    }
+
+    .flow-col.secure-col {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+
+    .flow-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding-bottom: 6px;
+    }
+
+    .flow-title {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .flow-step-box {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 7px 9px;
+      border: 1px solid rgba(0,0,0,0.06);
+      font-size: 11px;
+      line-height: 1.4;
+      color: var(--text-main);
+    }
+
+    .flow-step-num {
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+
+    .flow-code {
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 10px;
+      background: #0f172a;
+      color: #38bdf8;
+      padding: 3px 6px;
+      border-radius: 4px;
+      display: block;
+      margin-top: 4px;
+      word-break: break-all;
+    }
+
+    .flow-verdict {
+      padding: 7px 9px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1.3;
+    }
+
+    .flow-verdict.danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .flow-verdict.secure {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    /* 3. SLAYT: Mock Senaryo Simülatörü */
+    .mock-simulator-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .mock-tabs {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mock-tab-btn {
+      flex: 1;
+      padding: 7px 8px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-muted);
+      text-align: center;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .mock-tab-btn:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+    }
+
+    .mock-tab-btn.active {
+      background: var(--color-green);
+      color: #ffffff;
+      border-color: var(--color-green);
+      box-shadow: 0 2px 6px rgba(5, 150, 105, 0.25);
+    }
+
+    .mock-display-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mock-step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 11.5px;
+    }
+
+    .mock-step-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .mock-payload-box {
+      background: #0f172a;
+      color: #a5f3fc;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 10.5px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      overflow-x: auto;
+      line-height: 1.4;
+      white-space: pre-wrap;
+    }
+
+    .mock-badge-success {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 4. SLAYT: Audit Zaman Çizelgesi & Inspector */
+    .audit-timeline-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .audit-record-inspector {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .audit-event-tabs {
+      display: flex;
+      gap: 6px;
+    }
+
+    .audit-event-tab {
+      flex: 1;
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: #f8fafc;
+      color: var(--text-muted);
+      text-align: center;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .audit-event-tab:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .audit-event-tab.active {
+      background: var(--color-cyan);
+      color: #ffffff;
+      border-color: var(--color-cyan);
+    }
+
+    .record-fields-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 11px;
+    }
+
+    .field-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .field-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .field-val {
+      color: var(--text-main);
     }
 
     /* Konuşmacı Notları Paneli (Speaker Notes Drawer) */
@@ -681,9 +1075,93 @@
         </div>
 
         <div class="card chart-card">
-          <div class="card-title">PFCG 30-Karakter Alan Bütçesi ve Ayrılan Karakterler</div>
-          <div class="card-subtitle">Sözdizimindeki her alanın azami karakter kotası ve doluluk oranı</div>
-          <div id="chart-slide-1" class="chart-container"></div>
+          <div class="card-title">
+            <svg class="icon-svg" style="color: var(--color-blue);" viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+            Canlı Rol Sözdizimi Test Edici & Linter
+          </div>
+          <div class="card-subtitle">Kural tabanlı canlı rol adı derleyicisi ve 30 karakter bütçe denetimi</div>
+
+          <div class="syntax-builder-card">
+            <div class="builder-form-grid">
+              <div class="builder-field">
+                <label>Namespace</label>
+                <select id="synPrefix" class="builder-select" onchange="updateSyntaxBuilder()">
+                  <option value="Z:">Z: (Müşteri Özel)</option>
+                  <option value="Y:">Y: (Müşteri Özel)</option>
+                </select>
+              </div>
+              <div class="builder-field">
+                <label>Sistem Kapsamı</label>
+                <select id="synScope" class="builder-select" onchange="updateSyntaxBuilder()">
+                  <option value="S4">S4 (S/4HANA Core)</option>
+                  <option value="BT">BT (BTP Cloud)</option>
+                  <option value="BW">BW (BW/4HANA)</option>
+                </select>
+              </div>
+              <div class="builder-field">
+                <label>Modül Kodu</label>
+                <select id="synModule" class="builder-select" onchange="updateSyntaxBuilder()">
+                  <option value="MM">MM (Satınalma / Stok)</option>
+                  <option value="FI">FI (Mali İşler)</option>
+                  <option value="CO">CO (Maliyet Muhasebe)</option>
+                  <option value="SD">SD (Satış & Dağıtım)</option>
+                  <option value="BC">BC (Basis / Sistem)</option>
+                </select>
+              </div>
+              <div class="builder-field">
+                <label>Rol Tipi</label>
+                <select id="synType" class="builder-select" onchange="updateSyntaxBuilder()">
+                  <option value="D">D (Türetilmiş / Derived)</option>
+                  <option value="S">S (Tekil / Single)</option>
+                  <option value="C">C (Kompozit)</option>
+                  <option value="M">M (Menü Rolü)</option>
+                </select>
+              </div>
+              <div class="builder-field">
+                <label>İşlev / Görev Adı</label>
+                <input type="text" id="synFunc" class="builder-input" value="BUYER" maxlength="15" oninput="updateSyntaxBuilder()">
+              </div>
+              <div class="builder-field">
+                <label>Org Kısıtı / Tesis</label>
+                <input type="text" id="synOrg" class="builder-input" value="1000" maxlength="8" oninput="updateSyntaxBuilder()">
+              </div>
+            </div>
+
+            <!-- Canlı Çıktı ve Karakter Bütçesi -->
+            <div class="syntax-live-box">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Derlenen Teknik Rol Adı (AGR_NAME)</span>
+                <span id="synLengthBadge" class="code-badge" style="background: #1e293b; color: #38bdf8;">20 / 30 Karakter</span>
+              </div>
+              <div class="live-role-display" id="synRoleOutput">Z:S4_MM_D_BUYER_1000</div>
+              <div class="char-meter-container">
+                <span id="synRemainingText">10 karakter bütçe kaldı (Güvenli)</span>
+                <span id="synPercentText">%67 Doluluk</span>
+              </div>
+              <div class="char-bar-track">
+                <div id="synProgressBar" class="char-bar-fill" style="width: 66.6%; background-color: #10b981;"></div>
+              </div>
+            </div>
+
+            <!-- Linter Doğrulama Rozetleri -->
+            <div class="linter-checks">
+              <span id="checkNamespace" class="linter-badge valid">✔ Z:/Y: Namespace OK</span>
+              <span id="checkLength" class="linter-badge valid">✔ ≤ 30 Karakter Sınırı OK (20 ch)</span>
+              <span id="checkFormat" class="linter-badge valid">✔ Standart Ayraç (_) OK</span>
+              <span id="checkChars" class="linter-badge valid">✔ Geçerli Karakter Seti OK</span>
+            </div>
+
+            <!-- Hızlı Şablonlar -->
+            <div style="margin-top: 4px;">
+              <span style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-right: 6px;">Hızlı Şablonlar:</span>
+              <span class="preset-chips">
+                <button type="button" class="preset-btn" onclick="applySyntaxPreset('S4','MM','D','BUYER','1000')">MM Satınalma (D)</button>
+                <button type="button" class="preset-btn" onclick="applySyntaxPreset('S4','FI','S','AP_CLERK','HQ')">FI Borçlar (S)</button>
+                <button type="button" class="preset-btn" onclick="applySyntaxPreset('BT','SAC','S','BI_ANALYST','')">BTP Analist</button>
+                <button type="button" class="preset-btn" onclick="applySyntaxPreset('S4','BC','D','SECURITY_ADM','ALL')">Basis Admin</button>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -744,9 +1222,73 @@
         </div>
 
         <div class="card chart-card">
-          <div class="card-title">Veri Kısıtı Yöntemleri: SU3 Parametresi vs. Türetilmiş Rol</div>
-          <div class="card-subtitle">SCIM uyumu, denetim izi ve güvenlik güvencesi açısından 5 kriterli mimari kıyaslama</div>
-          <div id="chart-slide-2" class="chart-container"></div>
+          <div class="card-title">
+            <svg class="icon-svg" style="color: var(--color-violet);" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Çalışma Zamanı (Runtime) Yetki Karar Mimarisi
+          </div>
+          <div class="card-subtitle">SU3 Parametre Yanılsaması vs. Türetilmiş Rol (Derived Role) Kesin Kilit Karşılaştırması</div>
+
+          <div class="runtime-flow-grid">
+            <!-- Sol: SU3 Parametresi (Güvenlik Açığı) -->
+            <div class="flow-col danger-col">
+              <div class="flow-header">
+                <span class="flow-title" style="color: #991b1b;">SU3 Parametresi (Kullanıcı Önerisi)</span>
+                <span class="compare-tag tag-rose">Zayıf / Açık</span>
+              </div>
+
+              <div class="flow-step-box">
+                <span class="flow-step-num">1. Giriş:</span> SU01 / SU3 ekranına <code>BUK = 1000</code> yazılır.
+                <div style="font-size: 10.5px; color: #64748b; margin-top: 2px;">(Yalnızca GUI formuna öneri doldurur)</div>
+              </div>
+
+              <div class="flow-step-box">
+                <span class="flow-step-num">2. Manipülasyon:</span> Kullanıcı FB01 ekranında şirket kodunu silip <code>2000</code> yazar.
+              </div>
+
+              <div class="flow-step-box">
+                <span class="flow-step-num">3. Kontrol Anı:</span> SAP Çekirdeği tetiklenir:
+                <code class="flow-code">AUTHORITY-CHECK OBJECT 'F_BKPF_BUK' FIELD '2000'</code>
+              </div>
+
+              <div class="flow-verdict danger">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                <span>GÜVENLİK AÇIĞI! SU3 kontrolü kilitlemez; rolde '*' varsa erişim onaylanır!</span>
+              </div>
+              <div style="font-size: 11px; color: #991b1b; line-height: 1.3;">
+                ⚠️ <strong>SCIM 2.0 Kısıtı:</strong> IETF RFC 7643 standardı SU3 alanlarını taşıyamaz.
+              </div>
+            </div>
+
+            <!-- Sağ: Türetilmiş Rol (Standart & Kesin Güvenlik) -->
+            <div class="flow-col secure-col">
+              <div class="flow-header">
+                <span class="flow-title" style="color: #166534;">Türetilmiş Rol (Organizasyonel Kilit)</span>
+                <span class="compare-tag tag-green">SOX 404 Tam Kilit</span>
+              </div>
+
+              <div class="flow-step-box">
+                <span class="flow-step-num">1. Atama:</span> IPS SCIM motoru <code>Z:S4_FI_D_CLERK_1000</code> rolünü atar.
+                <div style="font-size: 10.5px; color: #64748b; margin-top: 2px;">(Yetki nesnesi BUKRS=1000 rolde kilitlidir)</div>
+              </div>
+
+              <div class="flow-step-box">
+                <span class="flow-step-num">2. Manipülasyon Girişimi:</span> Kullanıcı ekranda şirket koduna <code>2000</code> yazsa dahi:
+              </div>
+
+              <div class="flow-step-box">
+                <span class="flow-step-num">3. Kontrol Anı:</span> SAP Çekirdeği nesneyi denetler:
+                <code class="flow-code">AUTHORITY-CHECK OBJECT 'F_BKPF_BUK' ID 'BUKRS' FIELD '1000'</code>
+              </div>
+
+              <div class="flow-verdict secure">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>TAM KİLİT! SY-SUBRC = 4 (Yetki Yok) döner ve işlem anında durdurulur!</span>
+              </div>
+              <div style="font-size: 11px; color: #166534; line-height: 1.3;">
+                🛡️ <strong>Merkezi Yönetim:</strong> SCIM 2.0 ile Entra ID grubundan doğrudan yönetilir.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -813,9 +1355,23 @@
         </div>
 
         <div class="card chart-card">
-          <div class="card-title">Tekil Güven Kaynağı (SSoT) Dağıtım Akışı</div>
-          <div class="card-subtitle">Entra ID Grupları &rarr; SAP IPS Motoru &rarr; S/4HANA ve BTP Rol Koleksiyonları (Sankey)</div>
-          <div id="chart-slide-3" class="chart-container"></div>
+          <div class="card-title">
+            <svg class="icon-svg" style="color: var(--color-green);" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Mock Senaryo Doğrulama Simülatörü
+          </div>
+          <div class="card-subtitle">Canlı sisteme geçiş öncesi 3 kritik IAM senaryosunun davranış simülasyonu</div>
+
+          <div class="mock-simulator-container">
+            <div class="mock-tabs">
+              <button type="button" class="mock-tab-btn active" onclick="selectMockScenario(1)" id="mockTab1">MOCK 01: Day-1 Giriş</button>
+              <button type="button" class="mock-tab-btn" onclick="selectMockScenario(2)" id="mockTab2">MOCK 02: Görev Değişimi</button>
+              <button type="button" class="mock-tab-btn" onclick="selectMockScenario(3)" id="mockTab3">MOCK 03: Acil Firefighter</button>
+            </div>
+
+            <div class="mock-display-card" id="mockDisplayCard">
+              <!-- JS ile dinamik doldurulacak -->
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -874,9 +1430,29 @@
         </div>
 
         <div class="card chart-card">
-          <div class="card-title">3 Katmanlı Noktasal Zamanlı Denetim Korelasyon Modeli</div>
-          <div class="card-subtitle">SOX 404 & BDDK uyumlu kanıt doğrulama ve denetçi sorgulama zaman hattı</div>
-          <div id="chart-slide-4" class="chart-container"></div>
+          <div class="card-title">
+            <svg class="icon-svg" style="color: var(--color-cyan);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+            Noktasal Zamanlı Denetim (Point-in-Time) Kanıt Çizelgesi
+          </div>
+          <div class="card-subtitle">"15 Mart 2026'da Ahmet Yılmaz hangi yetkiye sahipti?" Vakasının Zaman Yolculuğu</div>
+
+          <div class="audit-timeline-wrapper">
+            <!-- Plotly Zaman Çizelgesi -->
+            <div id="chart-slide-4" style="width: 100%; height: 180px;"></div>
+
+            <!-- Tıklanabilir Kanıt Defteri İnceleyicisi -->
+            <div class="audit-record-inspector">
+              <div class="audit-event-tabs">
+                <button type="button" class="audit-event-tab" onclick="inspectAuditEvent(0)" id="auditTab0">10 Oca: Rol Eklendi (I)</button>
+                <button type="button" class="audit-event-tab active" onclick="inspectAuditEvent(1)" id="auditTab1">🎯 15 Mar: Denetim Noktası</button>
+                <button type="button" class="audit-event-tab" onclick="inspectAuditEvent(2)" id="auditTab2">20 Nis: Rol Silindi (D)</button>
+              </div>
+
+              <div class="record-fields-grid" id="auditRecordDisplay">
+                <!-- JS ile dinamik dolacak -->
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -948,8 +1524,11 @@
         </div>
 
         <div class="card chart-card">
-          <div class="card-title">Rol ve Unvan Emeklilik Yaşam Döngüsü Zaman Çizelgesi</div>
-          <div class="card-subtitle">Duyuru, toplu geçerlilik kapatma, 90 günlük karantina ve kalıcı arşivleme süreci</div>
+          <div class="card-title">
+            <svg class="icon-svg" style="color: var(--color-amber);" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            90 Günlük Rol Sönümleme ve Kullanım Burndown Eğrisi
+          </div>
+          <div class="card-subtitle">Aktif Kullanıcı Sayısı ve Yetki Çağrılarının 4 Kademeli Sıfırlanma ve Karantina Süreci</div>
           <div id="chart-slide-5" class="chart-container"></div>
         </div>
       </div>
@@ -1024,8 +1603,11 @@
         </div>
 
         <div class="card chart-card">
-          <div class="card-title">5 Boyutlu IAM Rol & Yaşam Döngüsü Olgunluk Skoru</div>
-          <div class="card-subtitle">Geleneksel Dağınık Model vs. Standartlaştırılmış Hedef Model Kıyaslaması (Radar)</div>
+          <div class="card-title">
+            <svg class="icon-svg" style="color: var(--color-rose);" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            RACI & Mimari Standartlar Yönetişim Isı Haritası (Heatmap)
+          </div>
+          <div class="card-subtitle">5 Temel İlke ve Paydaş Rolleri Arasındaki Sorumluluk ve Hesap Verebilirlik Matrisi</div>
           <div id="chart-slide-6" class="chart-container"></div>
         </div>
       </div>
@@ -1226,339 +1808,461 @@ Bu kuralları tavizsiz uyguladığımızda sıfır manuel bilet hedefimize ulaş
       }
     });
 
-    // Plotly Grafik Fonksiyonları
+    // Slayt Bileşenleri ve Plotly Fonksiyonları
     function renderChart(slideIndex) {
       setTimeout(() => {
         switch(slideIndex) {
-          case 0: renderChartSlide1(); break;
-          case 1: renderChartSlide2(); break;
-          case 2: renderChartSlide3(); break;
-          case 3: renderChartSlide4(); break;
-          case 4: renderChartSlide5(); break;
-          case 5: renderChartSlide6(); break;
+          case 0:
+            updateSyntaxBuilder();
+            break;
+          case 1:
+            // Slayt 2: CSS Tabanlı Runtime Flow Mimarisi
+            break;
+          case 2:
+            selectMockScenario(1);
+            break;
+          case 3:
+            renderChartSlide4();
+            break;
+          case 4:
+            renderChartSlide5();
+            break;
+          case 5:
+            renderChartSlide6();
+            break;
         }
       }, 50);
     }
 
-    // GRAFİK 1: PFCG 30-Karakter Bütçesi
-    function renderChartSlide1() {
-      const targetDiv = document.getElementById('chart-slide-1');
-      if (!targetDiv) return;
+    // 1. SLAYT: Canlı Rol İsimlendirici & Linter
+    function updateSyntaxBuilder() {
+      const prefixEl = document.getElementById('synPrefix');
+      if (!prefixEl) return;
+      const prefix = prefixEl.value;
+      const scope = document.getElementById('synScope').value;
+      const mod = document.getElementById('synModule').value;
+      const type = document.getElementById('synType').value;
+      let func = document.getElementById('synFunc').value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+      let org = document.getElementById('synOrg').value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
 
-      const segments = [
-        { name: 'Namespace (Z:)', ch: 2, color: '#1e293b' },
-        { name: 'Sistem (S4)', ch: 2, color: '#2563eb' },
-        { name: 'Modül (MM)', ch: 2, color: '#0891b2' },
-        { name: 'Rol Tipi (D)', ch: 1, color: '#7c3aed' },
-        { name: 'İşlev/Unvan', ch: 13, color: '#059669' },
-        { name: 'Org Kısıtı', ch: 6, color: '#d97706' },
-        { name: 'Ayraçlar (_)', ch: 4, color: '#94a3b8' }
-      ];
+      document.getElementById('synFunc').value = func;
+      document.getElementById('synOrg').value = org;
 
-      const data = segments.map(s => ({
-        type: 'bar',
-        orientation: 'h',
-        y: ['Karakter Bütçesi'],
-        x: [s.ch],
-        name: `${s.name} (${s.ch} ch)`,
-        text: [`${s.name} (${s.ch})`],
-        textposition: 'inside',
-        insidetextanchor: 'middle',
-        marker: { color: s.color },
-        hoverinfo: 'name+x'
-      }));
+      let roleName = `${prefix}${scope}_${mod}_${type}_${func || 'GOREV'}`;
+      if (org) {
+        roleName += `_${org}`;
+      }
 
-      const layout = {
-        barmode: 'stack',
-        font: { family: 'Poppins, sans-serif', size: 10, color: '#334155' },
-        margin: { l: 20, r: 20, t: 30, b: 60 },
-        paper_bgcolor: 'transparent',
-        plot_bgcolor: 'transparent',
-        xaxis: {
-          title: 'Toplam Karakter Sayısı (Azami SAP Limiti: 30)',
-          range: [0, 32],
-          dtick: 5,
-          gridcolor: '#e2e8f0'
-        },
-        yaxis: { showticklabels: false },
-        legend: { orientation: 'h', x: 0, y: -0.25 },
-        annotations: [
-          {
-            x: 30,
-            y: 0,
-            xref: 'x',
-            yref: 'y',
-            text: 'Azami Sınır: 30 Karakter',
-            showarrow: true,
-            arrowhead: 2,
-            ax: 0,
-            ay: -45,
-            font: { color: '#e11d48', size: 11, weight: 700 }
-          }
-        ]
-      };
+      const len = roleName.length;
+      const maxLen = 30;
+      const remaining = maxLen - len;
+      const pct = Math.min(100, Math.round((len / maxLen) * 100));
 
-      Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
+      const outEl = document.getElementById('synRoleOutput');
+      const badgeEl = document.getElementById('synLengthBadge');
+      const remEl = document.getElementById('synRemainingText');
+      const pctEl = document.getElementById('synPercentText');
+      const barEl = document.getElementById('synProgressBar');
+
+      outEl.textContent = roleName;
+      badgeEl.textContent = `${len} / ${maxLen} Karakter`;
+      pctEl.textContent = `%${pct} Doluluk`;
+      barEl.style.width = `${pct}%`;
+
+      if (len <= 25) {
+        barEl.style.backgroundColor = '#10b981';
+        remEl.textContent = `${remaining} karakter bütçe kaldı (Güvenli Alan)`;
+        remEl.style.color = '#10b981';
+      } else if (len <= 30) {
+        barEl.style.backgroundColor = '#f59e0b';
+        remEl.textContent = `${remaining} karakter kaldı (Sınırda)`;
+        remEl.style.color = '#f59e0b';
+      } else {
+        barEl.style.backgroundColor = '#ef4444';
+        remEl.textContent = `${Math.abs(remaining)} karakter AŞILDI! (SAP AGR_NAME Hatası)`;
+        remEl.style.color = '#ef4444';
+      }
+
+      const checkLen = document.getElementById('checkLength');
+      if (len <= 30) {
+        checkLen.className = 'linter-badge valid';
+        checkLen.textContent = `✔ ≤ 30 Karakter Sınırı OK (${len} ch)`;
+      } else {
+        checkLen.className = 'linter-badge invalid';
+        checkLen.textContent = `✖ 30 Karakter Limiti Aşıldı! (${len} ch)`;
+      }
     }
 
-    // GRAFİK 2: SU3 Parametresi vs. Türetilmiş Rol
-    function renderChartSlide2() {
-      const targetDiv = document.getElementById('chart-slide-2');
-      if (!targetDiv) return;
-
-      const criteria = [
-        'SCIM 2.0 Otomasyon',
-        'AUTHORITY-CHECK Güvencesi',
-        'SOX / Denetim İzi',
-        'Çoklu Tesis / Şirket Desteği',
-        'Bakım Standartlaşması'
-      ];
-
-      const trace1 = {
-        name: 'Geleneksel SU3 Parametresi',
-        type: 'bar',
-        x: criteria,
-        y: [20, 30, 40, 25, 35],
-        marker: { color: '#f59e0b' },
-        text: ['%20 (SCIM Desteklemez)', '%30 (Güvenlik Açığı)', '%40 (Zayıf İz)', '%25 (Tekil Değer)', '%35 (Elle Giriş)'],
-        textposition: 'auto'
-      };
-
-      const trace2 = {
-        name: 'Türetilmiş Rol (Derived Role)',
-        type: 'bar',
-        x: criteria,
-        y: [100, 100, 95, 90, 95],
-        marker: { color: '#7c3aed' },
-        text: ['%100 (Tam Uyum)', '%100 (Tam Kilit)', '%95 (Tam Denetim)', '%90 (Hiyerarşik)', '%95 (PFCG Şablon)'],
-        textposition: 'auto'
-      };
-
-      const layout = {
-        barmode: 'group',
-        font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
-        margin: { l: 40, r: 20, t: 30, b: 70 },
-        paper_bgcolor: 'transparent',
-        plot_bgcolor: 'transparent',
-        yaxis: {
-          title: 'Mimari ve Güvenlik Uyumluluk Skoru (%)',
-          range: [0, 115],
-          gridcolor: '#e2e8f0'
-        },
-        xaxis: { tickangle: -15 },
-        legend: { orientation: 'h', x: 0.1, y: 1.15 }
-      };
-
-      Plotly.react(targetDiv, [trace1, trace2], layout, { responsive: true, displayModeBar: false });
+    function applySyntaxPreset(scope, mod, type, func, org) {
+      document.getElementById('synScope').value = scope;
+      document.getElementById('synModule').value = mod;
+      document.getElementById('synType').value = type;
+      document.getElementById('synFunc').value = func;
+      document.getElementById('synOrg').value = org;
+      updateSyntaxBuilder();
     }
 
-    // GRAFİK 3: SSoT ve Dağıtım Akışı (Sankey)
-    function renderChartSlide3() {
-      const targetDiv = document.getElementById('chart-slide-3');
-      if (!targetDiv) return;
+    // 3. SLAYT: Mock Test Senaryoları Simülatörü
+    const mockScenarios = [
+      {
+        id: 1,
+        title: "TEST_MOCK_USER_01 • Day-1 Standart İşe Giriş Senaryosu",
+        trigger: "İK SuccessFactors / Entra ID'ye yeni personel kaydı açıldı: Satınalma Uzmanı (Birim: 1000).",
+        payload: `POST /scim/v2/Users
+{
+  "userName": "ahmet.yilmaz@sirket.com",
+  "groups": ["SG_SAP_MM_BUYER_1000", "SG_SAP_ALL_EMPLOYEES"]
+}`,
+        targetAction: "IPS motoru S/4HANA'da SU01 hesabını açar, 'Z:S4_MM_D_BUYER_1000' ve 'Z:S4_BASIS_S_ESS' rollerini bağlar.",
+        resultBadge: "✔ TEST BAŞARILI: Kullanıcı Day-1 sabahı 1000 tesisi yetkileriyle sisteme hazır; manuel bilet açılmadı."
+      },
+      {
+        id: 2,
+        title: "TEST_MOCK_USER_02 • Görev Değişimi (Mover) Senaryosu",
+        trigger: "Kullanıcı Satınalma'dan Finans'a geçti. Entra ID'de SG_SAP_MM grubu silindi, SG_SAP_FI_AP eklendi.",
+        payload: `PATCH /scim/v2/Users/ahmet.yilmaz
+{
+  "Operations": [
+    { "op": "remove", "path": "roles[value eq 'Z:S4_MM_D_BUYER_1000']" },
+    { "op": "add", "path": "roles", "value": [{"value": "Z:S4_FI_S_AP_CLERK"}] }
+  ]
+}`,
+        targetAction: "IPS eski satınalma rolünü CDPOS 'D' (Delete) ile kapatır, yeni muhasebe rolünü 'I' (Insert) ile ekler. SU01 hesabı korunur.",
+        resultBadge: "✔ TEST BAŞARILI: Yetki birikmesi (Privilege Creep) sıfırlandı; eski satınalma yetkisi tamamen kaldırıldı."
+      },
+      {
+        id: 3,
+        title: "TEST_MOCK_USER_03 • Acil Durum (Firefighter) Senaryosu",
+        trigger: "Canlı sistem arızası nedeniyle Basis ekibi S/4HANA'da yerel olarak acil 'Z_FF_BASIS' rolü atadı.",
+        payload: `GET /scim/v2/Users/mehmet.demir (IPS Keşif İşi)
+Filter Rule: abap.role.filter = "Z:*"
+Filtre Sonucu: "Z_FF_BASIS" yerel acil rolü IPS senkronizasyon silme kapsamı dışında tutulur.`,
+        targetAction: "Gece IPS grup senkronizasyonu çalıştığında yerel Firefighter rolü SİLİNMEZ, SSoT döngüsü kilitlenmez.",
+        resultBadge: "✔ TEST BAŞARILI: Acil kurtarma yetkisi korundu; sonsuz döngü (Circular Sync Loop) engellendi."
+      }
+    ];
 
-      const labels = [
-        'SG_SAP_MM_BUYER_1000',
-        'SG_SAP_FI_AP_CLERK',
-        'SG_SAP_BTP_SAC_ANALYST',
-        'SG_SAP_ALL_EMPLOYEES',
-        'SAP IPS SCIM Motoru',
-        'Z:S4_MM_D_BUYER_1000',
-        'Z:S4_FI_S_AP_CLERK',
-        'BTP_SAC_BI_ANALYST',
-        'Z:S4_BASIS_S_ESS'
-      ];
+    function selectMockScenario(id) {
+      document.querySelectorAll('.mock-tab-btn').forEach((btn, i) => {
+        if (i === id - 1) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
 
-      const data = [{
-        type: 'sankey',
-        orientation: 'h',
-        node: {
-          pad: 14,
-          thickness: 18,
-          line: { color: '#cbd5e1', width: 0.5 },
-          label: labels,
-          color: [
-            '#2563eb', '#0891b2', '#7c3aed', '#059669',
-            '#0f172a',
-            '#2563eb', '#0891b2', '#7c3aed', '#059669'
-          ]
-        },
-        link: {
-          source: [0, 1, 2, 3, 4, 4, 4, 4],
-          target: [4, 4, 4, 4, 5, 6, 7, 8],
-          value:  [25, 20, 15, 40, 25, 20, 15, 40],
-          color: [
-            'rgba(37, 99, 235, 0.25)',
-            'rgba(8, 145, 178, 0.25)',
-            'rgba(124, 58, 237, 0.25)',
-            'rgba(5, 150, 105, 0.25)',
-            'rgba(37, 99, 235, 0.35)',
-            'rgba(8, 145, 178, 0.35)',
-            'rgba(124, 58, 237, 0.35)',
-            'rgba(5, 150, 105, 0.35)'
-          ]
-        }
-      }];
+      const sc = mockScenarios[id - 1];
+      const card = document.getElementById('mockDisplayCard');
+      if (!card) return;
 
-      const layout = {
-        font: { family: 'Poppins, sans-serif', size: 10, color: '#334155' },
-        margin: { l: 15, r: 15, t: 20, b: 20 },
-        paper_bgcolor: 'transparent',
-        plot_bgcolor: 'transparent'
-      };
-
-      Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
+      card.innerHTML = `
+        <div style="font-weight: 700; color: var(--color-green); font-size: 12.5px;">${sc.title}</div>
+        <div class="mock-step-row">
+          <div class="mock-step-icon" style="background: #e0f2fe; color: #0284c7;">1</div>
+          <div>
+            <strong style="font-size: 11.5px;">Tetikleyici Olay (Source Event):</strong>
+            <p style="color: var(--text-muted); font-size: 11px; margin-top: 2px;">${sc.trigger}</p>
+          </div>
+        </div>
+        <div class="mock-step-row">
+          <div class="mock-step-icon" style="background: #ede9fe; color: #7c3aed;">2</div>
+          <div style="width: 100%;">
+            <strong style="font-size: 11.5px;">IPS SCIM 2.0 İletim Paketi (Payload):</strong>
+            <pre class="mock-payload-box" style="margin-top: 4px;">${sc.payload}</pre>
+          </div>
+        </div>
+        <div class="mock-step-row">
+          <div class="mock-step-icon" style="background: #dcfce7; color: #16a34a;">3</div>
+          <div>
+            <strong style="font-size: 11.5px;">Hedef Sistem Davranışı (S/4HANA & BTP):</strong>
+            <p style="color: var(--text-muted); font-size: 11px; margin-top: 2px;">${sc.targetAction}</p>
+          </div>
+        </div>
+        <div class="mock-badge-success">
+          <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          ${sc.resultBadge}
+        </div>
+      `;
     }
 
-    // GRAFİK 4: 3 Katmanlı Noktasal Zamanlı Denetim (Point-in-Time)
+    // 4. SLAYT: Noktasal Zamanlı Denetim (Point-in-Time)
+    const auditRecords = [
+      {
+        tab: "10 Oca: Rol Eklendi (I)",
+        title: "10 Ocak 2026 • İlk İşe Giriş (Day-1 Provisioning)",
+        event: "Yeni Satınalma Uzmanı Rolü Bağlandı",
+        cdhdr: { USERNAME: "IPS_PROV_SERVICE", UDATE: "10.01.2026", UTIME: "08:30:15", CHANGENR: "000109241" },
+        cdpos: { TABNAME: "AGR_USERS", FNAME: "AGR_NAME", VALUE_NEW: "Z:S4_MM_D_BUYER_1000", CHNGIND: "I (Insert)" },
+        soxProof: "Entra ID bilet onay referansı: CHG-2026-00412. İK pozisyonuyla birebir uyumlu."
+      },
+      {
+        tab: "🎯 15 Mar: Denetim Noktası",
+        title: "15 Mart 2026 • SOX 404 & BDDK Denetçi Sorgusu",
+        event: "Point-in-Time Yetki Anlık Görüntüsü (Snapshot)",
+        cdhdr: { USERNAME: "AUDIT_QUERY_BOT", UDATE: "15.03.2026", UTIME: "14:00:00", CHANGENR: "SNAPSHOT_01" },
+        cdpos: { TABNAME: "AGR_USERS", FNAME: "FROM_DAT / TO_DAT", VALUE_NEW: "10.01.2026 / 31.12.9999", CHNGIND: "VALID" },
+        soxProof: "Denetçi Kanıtı: Ahmet Bey bu tarihte SADECE Z:S4_MM_D_BUYER_1000 rolüne sahiptir; yetki aşımı yoktur."
+      },
+      {
+        tab: "20 Nis: Rol Silindi (D)",
+        title: "20 Nisan 2026 • Görev Değişimi (Mover Revocation)",
+        event: "Satınalma Rolü İptali ve Arşiv Kaydı",
+        cdhdr: { USERNAME: "IPS_PROV_SERVICE", UDATE: "20.04.2026", UTIME: "02:15:20", CHANGENR: "000145892" },
+        cdpos: { TABNAME: "AGR_USERS", FNAME: "AGR_NAME", VALUE_OLD: "Z:S4_MM_D_BUYER_1000", CHNGIND: "D (Delete)" },
+        soxProof: "Tarihsel Tablo USH04'e arşiv kopyası aktarıldı. Yetki anında kapatıldı."
+      }
+    ];
+
     function renderChartSlide4() {
       const targetDiv = document.getElementById('chart-slide-4');
       if (!targetDiv) return;
 
-      const layers = [
-        '1. İK Pozisyon Geçmişi (SF)',
-        '2. Entra ID Denetim Günlüğü',
-        '3. S/4HANA AGR_USERS',
-        '4. S/4HANA CDHDR / CDPOS'
+      const dates = ['2026-01-10', '2026-03-15', '2026-04-20'];
+      const labels = [
+        '10 Oca: Rol Eklendi (Insert)',
+        '15 Mar: Denetçi Snapshot',
+        '20 Nis: Rol Silindi (Delete)'
       ];
+      const colors = ['#0891b2', '#e11d48', '#d97706'];
+      const symbols = ['circle', 'diamond', 'x'];
 
-      const trace1 = {
-        name: 'Olay Anı Doğruluğu',
-        type: 'bar',
-        y: layers,
-        x: [95, 98, 100, 100],
-        orientation: 'h',
-        marker: { color: '#0891b2' },
-        text: ['Pozisyon Kodu', 'Grup Ekleme', 'FROM_DAT/TO_DAT', 'CHNGIND: I/D'],
-        textposition: 'inside'
+      const traceLine = {
+        x: ['2026-01-01', '2026-05-01'],
+        y: [0, 0],
+        mode: 'lines',
+        line: { color: '#cbd5e1', width: 3 },
+        hoverinfo: 'none',
+        showlegend: false
       };
 
-      const trace2 = {
-        name: 'SOX 404 Kanıt Gücü',
-        type: 'bar',
-        y: layers,
-        x: [90, 95, 100, 100],
-        orientation: 'h',
-        marker: { color: '#2563eb' },
-        text: ['Organizasyonel', 'Dizin Üyeliği', 'Veritabanı', 'Kalıcı Belge'],
-        textposition: 'inside'
+      const tracePoints = {
+        x: dates,
+        y: [0, 0, 0],
+        mode: 'markers+text',
+        marker: {
+          size: [14, 20, 14],
+          color: colors,
+          symbol: symbols,
+          line: { color: '#ffffff', width: 2 }
+        },
+        text: labels,
+        textposition: ['top center', 'bottom center', 'top center'],
+        textfont: { family: 'Poppins, sans-serif', size: 9.5, color: '#1e293b', weight: 600 },
+        hoverinfo: 'text',
+        showlegend: false
       };
 
       const layout = {
-        barmode: 'group',
         font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
-        margin: { l: 175, r: 20, t: 25, b: 50 },
+        margin: { l: 25, r: 25, t: 30, b: 25 },
         paper_bgcolor: 'transparent',
         plot_bgcolor: 'transparent',
         xaxis: {
-          title: 'Denetçi Güven ve Kanıt İndeksi (%)',
-          range: [0, 115],
+          type: 'date',
+          range: ['2026-01-01', '2026-05-01'],
+          tickformat: '%d %b',
           gridcolor: '#e2e8f0'
         },
-        yaxis: { autorange: 'reversed' },
-        legend: { orientation: 'h', x: 0, y: 1.15 }
+        yaxis: { showticklabels: false, showgrid: false, zeroline: false, range: [-0.6, 0.6] }
       };
 
-      Plotly.react(targetDiv, [trace1, trace2], layout, { responsive: true, displayModeBar: false });
+      Plotly.react(targetDiv, [traceLine, tracePoints], layout, { responsive: true, displayModeBar: false });
+      inspectAuditEvent(1);
     }
 
-    // GRAFİK 5: Rol Emeklilik Yaşam Döngüsü Zaman Çizelgesi
+    function inspectAuditEvent(idx) {
+      document.querySelectorAll('.audit-event-tab').forEach((tab, i) => {
+        if (i === idx) tab.classList.add('active');
+        else tab.classList.remove('active');
+      });
+
+      const rec = auditRecords[idx];
+      const disp = document.getElementById('auditRecordDisplay');
+      if (!disp) return;
+
+      disp.innerHTML = `
+        <div style="grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 4px;">
+          <strong style="color: var(--color-cyan); font-size: 11.5px;">${rec.title}</strong>
+          <span class="compare-tag tag-blue">${rec.event}</span>
+        </div>
+        <div class="field-item">
+          <span class="field-label">CDHDR Başlık:</span>
+          <span class="field-val"><code>USER: ${rec.cdhdr.USERNAME} | ${rec.cdhdr.UDATE} ${rec.cdhdr.UTIME}</code></span>
+        </div>
+        <div class="field-item">
+          <span class="field-label">CDPOS Kayıt İzi:</span>
+          <span class="field-val"><code>TAB: ${rec.cdpos.TABNAME} | CHNGIND: ${rec.cdpos.CHNGIND}</code></span>
+        </div>
+        <div class="field-item" style="grid-column: 1 / -1;">
+          <span class="field-label">Değişen Yetki Değeri:</span>
+          <span class="field-val"><strong style="color: #0f172a; font-size: 11.5px;">${rec.cdpos.VALUE_NEW || rec.cdpos.VALUE_OLD}</strong></span>
+        </div>
+        <div class="field-item" style="grid-column: 1 / -1; background: #ecfeff; border: 1px solid #a5f3fc; padding: 6px 10px; border-radius: 6px;">
+          <span style="font-size: 11px; color: #0e7490;">🛡️ <strong>SOX 404 Kanıtı:</strong> ${rec.soxProof}</span>
+        </div>
+      `;
+    }
+
+    // 5. SLAYT: Rol Sönümleme ve Kullanım Burndown Eğrisi (Plotly)
     function renderChartSlide5() {
       const targetDiv = document.getElementById('chart-slide-5');
       if (!targetDiv) return;
 
-      const stages = [
-        '1. Duyuru & [DEPRECATED]',
-        '2. Toplu Bitiş (TO_DAT=Bugün)',
-        '3. SG_SAP_RETIRED_* Filtresi',
-        '4. 90 Gün Karantina Süresi',
-        '5. Kalıcı Silme & Arşivleme'
-      ];
+      const days = [0, 2, 7, 14, 30, 60, 90, 104, 110];
+      const activeUsers = [150, 145, 0, 0, 0, 0, 0, 0, 0];
+      const authExecCalls = [1200, 950, 120, 0, 0, 0, 0, 0, 0];
 
-      const startDays = [0, 1, 7, 14, 104];
-      const durations = [1, 6, 7, 90, 5];
-      const colors = ['#f59e0b', '#d97706', '#ea580c', '#0891b2', '#e11d48'];
+      const traceUsers = {
+        name: 'Aktif Kullanıcı Sayısı (AGR_USERS)',
+        x: days,
+        y: activeUsers,
+        type: 'scatter',
+        mode: 'lines+markers',
+        fill: 'tozeroy',
+        line: { color: '#ea580c', width: 2.5 },
+        fillcolor: 'rgba(234, 88, 12, 0.15)',
+        marker: { size: 6 }
+      };
 
-      const data = [{
-        type: 'bar',
-        orientation: 'h',
-        y: stages,
-        x: durations,
-        base: startDays,
-        marker: { color: colors },
-        text: ['1 Gün', '6 Gün', '7 Gün', '90 Gün Karantina', '5 Gün'],
-        textposition: 'inside',
-        insidetextanchor: 'middle'
-      }];
+      const traceCalls = {
+        name: 'Yetki Çağrı Trafiği (ST03N Log)',
+        x: days,
+        y: authExecCalls,
+        yaxis: 'y2',
+        type: 'scatter',
+        mode: 'lines',
+        line: { color: '#0891b2', width: 2, dash: 'dot' }
+      };
 
       const layout = {
         font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
-        margin: { l: 170, r: 25, t: 25, b: 50 },
+        margin: { l: 45, r: 50, t: 25, b: 65 },
         paper_bgcolor: 'transparent',
         plot_bgcolor: 'transparent',
         xaxis: {
-          title: 'Emeklilik Süreç Zamanı (Gün Sayısı - Toplam 110 Gün)',
+          title: 'Emeklilik Yaşam Döngüsü Zamanı (Gün)',
           dtick: 15,
-          gridcolor: '#e2e8f0',
-          range: [0, 115]
+          range: [-2, 115],
+          gridcolor: '#e2e8f0'
         },
-        yaxis: { autorange: 'reversed' }
+        yaxis: {
+          title: 'Aktif Kullanıcı',
+          range: [0, 170],
+          gridcolor: '#e2e8f0'
+        },
+        yaxis2: {
+          title: 'Yetki Çağrısı',
+          overlaying: 'y',
+          side: 'right',
+          range: [0, 1400],
+          showgrid: false
+        },
+        legend: { orientation: 'h', x: 0, y: -0.25 },
+        shapes: [
+          {
+            type: 'rect',
+            xref: 'x',
+            yref: 'paper',
+            x0: 14,
+            x1: 104,
+            y0: 0,
+            y1: 1,
+            fillcolor: 'rgba(8, 145, 178, 0.08)',
+            line: { width: 0 }
+          }
+        ],
+        annotations: [
+          {
+            x: 7,
+            y: 5,
+            xref: 'x',
+            yref: 'y',
+            text: '7. Gün: Toplu Geçerlilik Kapatma (0 Kullanıcı)',
+            showarrow: true,
+            arrowhead: 2,
+            ax: 20,
+            ay: -35,
+            font: { color: '#ea580c', size: 9.5, weight: 700 }
+          },
+          {
+            x: 60,
+            y: 110,
+            xref: 'x',
+            yref: 'y',
+            text: '90 GÜNLÜK GÜVENLİK KARANTİNASI<br>(SG_SAP_RETIRED_* | 0 Yetki Çağrısı)',
+            showarrow: false,
+            font: { color: '#0891b2', size: 10, weight: 700 }
+          },
+          {
+            x: 105,
+            y: 0,
+            xref: 'x',
+            yref: 'y',
+            text: 'Kalıcı Silme & Arşiv',
+            showarrow: true,
+            arrowhead: 2,
+            ax: 0,
+            ay: -35,
+            font: { color: '#e11d48', size: 9.5, weight: 700 }
+          }
+        ]
       };
 
-      Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
+      Plotly.react(targetDiv, [traceUsers, traceCalls], layout, { responsive: true, displayModeBar: false });
     }
 
-    // GRAFİK 6: 5 Boyutlu IAM ve Rol Olgunluk Radarı
+    // 6. SLAYT: RACI & Mimari Standartlar Yönetişim Isı Haritası (Plotly Heatmap)
     function renderChartSlide6() {
       const targetDiv = document.getElementById('chart-slide-6');
       if (!targetDiv) return;
 
-      const categories = [
-        'Rol İsimlendirme (30 Karakter)',
-        'Varsayılan Güvenlik (Derived Role)',
-        'Döngü Koruması (SSoT İlkesi)',
-        'Denetim İzlenebilirliği (CDHDR/POS)',
-        'Karantinalı Emeklilik Yönetimi'
+      const roles = ['İK (HR)', 'Entra ID / IT', 'SAP Basis', 'İş Birimi', 'CISO / Denetim'];
+      const topics = [
+        'Rol İsimlendirme',
+        'Türetilmiş Roller',
+        'SSoT & Döngü',
+        'CDHDR/POS Denetim',
+        'Karantinalı Emeklilik'
       ];
 
-      const data = [
-        {
-          type: 'scatterpolar',
-          r: [30, 25, 35, 45, 20, 30],
-          theta: [...categories, categories[0]],
-          fill: 'toself',
-          name: 'Geleneksel / Dağınık Durum',
-          line: { color: '#f59e0b', width: 2 },
-          fillcolor: 'rgba(245, 158, 11, 0.2)'
-        },
-        {
-          type: 'scatterpolar',
-          r: [95, 95, 100, 95, 90, 95],
-          theta: [...categories, categories[0]],
-          fill: 'toself',
-          name: 'Standartlaştırılmış SAP IAM',
-          line: { color: '#059669', width: 2.5 },
-          fillcolor: 'rgba(5, 150, 105, 0.3)'
-        }
+      const zValues = [
+        [1, 3, 4, 2, 2],
+        [1, 2, 4, 3, 2],
+        [2, 4, 3, 1, 3],
+        [1, 2, 4, 1, 4],
+        [2, 3, 4, 3, 4]
       ];
+
+      const textValues = [
+        ['I (Bilgilendirilen)', 'R (Sorumlu)', 'A (Hesap Verebilir)', 'C (Danışılan)', 'C (Danışılan)'],
+        ['I (Bilgilendirilen)', 'C (Danışılan)', 'A (Hesap Verebilir)', 'R (Sorumlu)', 'C (Danışılan)'],
+        ['C (Danışılan)', 'A (Hesap Verebilir)', 'R (Sorumlu)', 'I (Bilgilendirilen)', 'R (Sorumlu)'],
+        ['I (Bilgilendirilen)', 'C (Danışılan)', 'A (Hesap Verebilir)', 'I (Bilgilendirilen)', 'A (Hesap Verebilir)'],
+        ['C (Danışılan)', 'R (Sorumlu)', 'A (Hesap Verebilir)', 'R (Sorumlu)', 'A (Hesap Verebilir)']
+      ];
+
+      const data = [{
+        type: 'heatmap',
+        z: zValues,
+        x: roles,
+        y: topics,
+        text: textValues,
+        texttemplate: '%{text}',
+        textfont: { family: 'Poppins, sans-serif', size: 9.5, color: '#0f172a', weight: 600 },
+        colorscale: [
+          [0.0, '#f1f5f9'],
+          [0.33, '#e0f2fe'],
+          [0.66, '#fed7aa'],
+          [1.0, '#bbf7d0']
+        ],
+        showscale: false,
+        hoverongaps: false
+      }];
 
       const layout = {
-        polar: {
-          radialaxis: {
-            visible: true,
-            range: [0, 100],
-            tickfont: { size: 9 },
-            gridcolor: '#e2e8f0'
-          },
-          angularaxis: {
-            tickfont: { size: 9.5, weight: 600 }
-          }
-        },
         font: { family: 'Poppins, sans-serif', size: 9.5, color: '#334155' },
-        margin: { l: 40, r: 40, t: 30, b: 40 },
+        margin: { l: 140, r: 20, t: 25, b: 50 },
         paper_bgcolor: 'transparent',
         plot_bgcolor: 'transparent',
-        legend: { orientation: 'h', x: 0.05, y: -0.15 }
+        xaxis: { tickangle: 0, side: 'top' },
+        yaxis: { autorange: 'reversed' }
       };
 
       Plotly.react(targetDiv, data, layout, { responsive: true, displayModeBar: false });
@@ -1571,10 +2275,12 @@ Bu kuralları tavizsiz uyguladığımızda sıfır manuel bilet hedefimize ulaş
 
     // Pencere boyutu değiştiğinde grafikleri yeniden boyutlandır
     window.addEventListener('resize', () => {
-      const activeChart = document.querySelector(`.slide-container.active .chart-container`);
-      if (activeChart && activeChart.id) {
-        Plotly.Plots.resize(activeChart);
-      }
+      ['chart-slide-4', 'chart-slide-5', 'chart-slide-6'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.offsetParent !== null) {
+          Plotly.Plots.resize(el);
+        }
+      });
     });
   </script>
 </body>
